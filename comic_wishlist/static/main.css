@@ -1,3 +1,81 @@
+
 body {
-    background-color: red;
+   background-color: var(--bgcolor);
+   color: var(--secondary);
+   padding: 15px;
+    font-family: var(--main-font);
+}
+
+h1 {
+   text-align: center;
+   font-family: var(--title);
+    color: var(--primary);
+}
+
+.setting {
+    float: right;
+    color: var(--mute);
+}
+
+.setting:hover {
+    color: var(--third);
+}
+
+
+.card {
+    border-radius: 5px;
+    border: solid 1px var(--mute);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2)
+}
+.card-head {
+    background-color: var(--mute);
+    padding: 10px;
+    border-radius: 5px;
+    border: solid 1px var(--mute);
+}
+
+.heading {
+    color: var(--third);
+    font-family: var(--title);
+    font-size: x-large;
+    padding-left: 20px;
+}
+
+.heading:hover {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.icon {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+}
+
+.title {
+    color: var(--primary);
+}
+
+.title:hover{
+    color: var(--third);
+    text-decoration: none;
+}
+
+.color-theme {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.dot {
+    height: 40px;
+    width: 40px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    display: inline-block;
+    padding-right: 10px;
+    box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.2)
+}
+
+.dot:hover {
+    background-color: var(--third);
 }
