@@ -27,6 +27,7 @@ h1 {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     margin-bottom: 1px;
 }
+
 .card-head {
     background-color: var(--mute);
     padding: 10px;
