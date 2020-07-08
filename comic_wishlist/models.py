@@ -12,4 +12,7 @@ class Colors(db.Model):
     mute = db.Column(db.String(10), nullable=False)
 
 
-
+class Comics(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    press = db. Column(db.String, nullable=False)
+    title = db.Column(db.String, nullable=False)

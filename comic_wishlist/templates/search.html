@@ -1,22 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<script>
-    function toggleHidden(divId) {
-        row = document.getElementById(divId);
-        if (row.style.display === 'none') {
-            row.style.display = 'block'
-        } else {
-            row.style.display = 'none'
-        }
-    }
+<h4>Search for: {{ title}}</h4>
+{% for search_result in search_results %}
 
-</script>
-
-{% for comic in comics %}
 <div class="card">
     <a class="card-head" data-toggle="collapse" href="#pressname1" role="button" aria-expanded="false" aria-controls="collapseExample">
-        {{comic.press}}<i class="fa fa-caret-down icon"></i>
+        {{search_result.press}}<i class="fa fa-caret-down icon"></i>
     </a>
 
     <div class="collapse" id="pressname1">
@@ -25,7 +15,7 @@
                 <div class="row">
                     <div class="col-6">
                         <a class="title" data-toggle="collapse" href="#spiderman" role="button" aria-expanded="false" aria-controls="collapseExample" onclick="toggleHidden('publisher_comic-name_year')">
-                        {{comic.title}}
+                        {{search_result.title}}
                         </a>
                     </div>
                     <div class="col-3">Year</div>
@@ -49,31 +39,13 @@
                 </ul>
             </li>
 
-          <li class="list-group-item">Spiderman</li>
-          <li class="list-group-item">Spiderman</li>
-          <li class="list-group-item">Spiderman</li>
-          <li class="list-group-item">Spiderman</li>
+          <li class="list-group-item">{{search_result.title}}</li>
+          <li class="list-group-item">{{search_result.title}}</li>
+          <li class="list-group-item">{{search_result.title}}</li>
+          <li class="list-group-item">{{search_result.title}}</li>
         </ul>
     </div>
 </div>
 {% endfor %}
 
-<div class="card">
-    <a class="card-head" data-toggle="collapse" href="#pressname2" role="button" aria-expanded="false" aria-controls="collapseExample">
-        DC<i class="fa fa-caret-down icon"></i>
-    </a>
-
-    <div class="collapse" id="pressname2">
-        <div class=" card-body">
-
-        </div>
-    </div>
-
-</div>
-
 {% endblock %}
-
-
-
-
-

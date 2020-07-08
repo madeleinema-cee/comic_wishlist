@@ -43,7 +43,14 @@
                     <a class="theme-dot-blue" href="{{url_for('select_color', color_id=2)}}"></a>
                 </div>
             </div>
-            <h1>COMIC WISHLIST</h1>
+            <a class="setting" data-toggle="collapse" href="#search" aria-expanded="false" aria-controls="colortheme"><i class="fa fa-search" style="font-size:24px"></i></a>
+                <div class="collapse" id="search">
+                    <form action="" method="post">
+                    {{form.search_text(class="form-control-md search", placeholder="Title")}}
+                    {{form.submit(class="btn-md btn-section")}}
+                    </form>
+                </div>
+            <a class="header" href="{{url_for('index')}}"><h1>COMIC WISHLIST</h1></a>
             {% block content %}{% endblock %}
         </div>
 

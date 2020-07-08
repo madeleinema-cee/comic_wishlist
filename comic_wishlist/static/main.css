@@ -1,20 +1,28 @@
 
 body {
-   background-color: var(--bgcolor);
-   color: var(--secondary);
-   padding: 15px;
+    background-color: var(--bgcolor);
+    color: var(--secondary);
+    padding: 15px;
     font-family: var(--main-font);
 }
 
+.header:hover {
+    color: var(--bgcolor);
+    text-decoration: none;
+}
 h1 {
-   text-align: center;
-   font-family: var(--title);
+    margin: auto;
+    width: 90%;
+    text-align: center;
+    font-family: var(--title);
     color: var(--primary);
 }
 
 .setting {
     float: right;
     color: var(--mute);
+    padding-left: 5px;
+
 }
 
 .setting:hover {
@@ -23,15 +31,17 @@ h1 {
 
 
 .card {
-    border: solid 1px var(--mute);
+    border-radius: 5px;
+    border: 1px var(--mute);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     margin-bottom: 1px;
 }
 
 .card-head {
+    border-radius: 5px;
     background-color: var(--mute);
     padding: 10px;
-    border: solid 2px var(--mute);
+    border: 1px var(--mute);
     color: var(--primary);
     font-family: var(--title);
     font-size: x-large;
@@ -86,3 +96,27 @@ h1 {
     background-color: #CEDFF3;
 }
 
+.search {
+    border-radius: 5px;
+    border: var(--mute) 1px;
+    background-color: var(--mute);
+}
+
+.btn-section {
+    background-color: var(--mute);
+    border-radius: 5px;
+    border: var(--mute) 1px;
+    color: var(--primary);
+    font-family: var(--title);
+
+}
+
+.btn-section:hover {
+    color: var(--mute);
+    background-color: var(--primary);
+}
+
+
+h3 {
+    padding-bottom: 10px;
+}
