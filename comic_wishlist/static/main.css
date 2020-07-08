@@ -23,26 +23,23 @@ h1 {
 
 
 .card {
-    border-radius: 5px;
     border: solid 1px var(--mute);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2)
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin-bottom: 1px;
 }
 .card-head {
     background-color: var(--mute);
     padding: 10px;
-    border-radius: 5px;
-    border: solid 1px var(--mute);
-}
-
-.heading {
-    color: var(--third);
+    border: solid 2px var(--mute);
+    color: var(--primary);
     font-family: var(--title);
     font-size: x-large;
     padding-left: 20px;
 }
 
-.heading:hover {
-    color: var(--primary);
+
+.card-head:hover {
+    color: var(--secondary);
     text-decoration: none;
 }
 
@@ -66,16 +63,25 @@ h1 {
     padding-bottom: 10px;
 }
 
-.dot {
+[class*="theme-dot-"]{
     height: 40px;
     width: 40px;
-    background-color: var(--primary);
     border-radius: 50%;
     display: inline-block;
     padding-right: 10px;
     box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.2)
 }
 
-.dot:hover {
-    background-color: var(--third);
+[class*="theme-dot-"]:hover {
+    opacity: 0.8
 }
+
+
+.theme-dot-steel {
+    background-color: #fca311 ;
+}
+
+.theme-dot-blue {
+    background-color: #CEDFF3;
+}
+

@@ -1,22 +1,22 @@
 from comic_wishlist import db
-from comic_wishlist.models import Color
+from comic_wishlist.models import Colors
 
 colors = {
-    'ironman': ['f0f0f4', 'AA0505', '6A0C0B', 'B97D10', 'FBCA03'],
-    'capmarvel': ['f0f0f4', '2A75B3', 'F3D403', '000000', 'CC4224'],
-
-
+    'steel': ['#14213d', '#fca311', '#282e3c', '#fca311', '#284b63'],
+    'blue': ['#7EA3CC', '#B3001B', '#262626', '#255C99', '#CEDFF3'],
 }
 
 
 def add_color():
     for k, v in colors.items():
-        theme = Color(name=k, bgcolor=v[0], primary=v[1],
+        color = Colors(name=k, selected=False, bgcolor=v[0], primary=v[1],
                       secondary=v[2], third=v[3], mute=v[4])
 
-        print(theme)
-        db.session.add(theme)
+        db.session.add(color)
         db.session.commit()
 
+
 add_color()
+
+
 

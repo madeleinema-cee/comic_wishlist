@@ -19,15 +19,16 @@
             <title>Comic Wishlist</title>
         {% endif %}
 
+        {# Red but works #}
          <style>
             :root {
-                --bgcolor: #f0f0f4;
-                --primary: {{color_choice.primary}};
-                --secondary: #6A0C0B;
-                --third: #B97D10;
-                --mute: #FBCA03;
+                --bgcolor: {{theme.bgcolor}};
+                --primary: {{theme.primary}};
+                --secondary: {{theme.secondary}};
+                --third: {{theme.third}};
+                --mute: {{theme.mute}};
                 --title: "Bangers";
-                --main-font: "Ubuntu"
+                --main-font: "Ubuntu";
             }
         </style>
     </head>
@@ -38,9 +39,8 @@
 
             <div class="collapse" id="colortheme">
                 <div class="color-theme">
-                    <a class="dot" href="#"></a>
-                    <a class="dot" href="#"></a>
-                    <a class="dot" href="#"></a>
+                    <a class="theme-dot-steel" href="{{url_for('select_color', color_id=1)}}"></a>
+                    <a class="theme-dot-blue" href="{{url_for('select_color', color_id=2)}}"></a>
                 </div>
             </div>
             <h1>COMIC WISHLIST</h1>
