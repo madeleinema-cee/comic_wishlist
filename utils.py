@@ -1,5 +1,5 @@
 from comic_wishlist import db
-from comic_wishlist.models import Colors
+from comic_wishlist.models import Colors, Comics
 
 colors = {
     'steel': ['#14213d', '#fca311', '#282e3c', '#fca311', '#284b63'],
@@ -13,10 +13,20 @@ def add_color():
                       secondary=v[2], third=v[3], mute=v[4])
 
         db.session.add(color)
+
+
+comics = {
+    'ironman': ['Marvel']
+}
+
+
+def add_comic():
+    for k, v in comics.items():
+        comic = Comics(title=k, press=v[0])
+
+        db.session.add(comic)
         db.session.commit()
 
 
-add_color()
-
-
+add_comic()
 
