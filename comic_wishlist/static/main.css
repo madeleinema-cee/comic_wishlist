@@ -128,15 +128,10 @@ img {
     width: auto;
 }
 
-.modal-body {
-    text-align: center;
-    padding: 0;
-    margin: 0;
-}
-
 .close {
     float: right;
     position: absolute;
     top:0;
     right: 5px;
 }
+

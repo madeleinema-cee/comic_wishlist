@@ -38,3 +38,6 @@ def search(title):
         if form.validate_on_submit:
             return redirect(url_for('search', title=form.search_text.data))
     return render_template('search.html', theme=theme, form=form, search_results=search_results, title=title)
+
+
+
