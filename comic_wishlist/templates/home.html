@@ -40,7 +40,24 @@
                 </div>
 
                 <ul class="list-group list-group-flush collapse" id="spiderman">
-                    <li class="list-group-item py-1">1</li>
+                    <li class="list-group-item py-1">
+                        <a data-toggle="modal" data-target="#comiccover">
+                            1
+                        </a>
+                        <div class="modal fade" id="comiccover" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered bd-example-modal-sm" role="document">
+                                <div class="modal-content">
+
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close"><span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <img src="{{url}}" alt="comic-image">
+
+                                </div>
+                              </div>
+                        </div>
+                    </li>
                     <li class="list-group-item py-1">2</li>
                     <li class="list-group-item py-1">3</li>
                     <li class="list-group-item py-1">4</li>

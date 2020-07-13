@@ -4,16 +4,19 @@ from comic_wishlist.models import Colors, Comics
 from comic_wishlist.form import SearchForm
 
 
-@app.route('/')
-@app.route('/home', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/index', methods=['GET', 'POST'])
 def index():
     theme = Colors.query.filter_by(selected=True).first()
     comics = Comics.query.all()
     form = SearchForm()
+    searchterm = '0cffc2f2-7210-4b1c-a8c7-653e873677c6'
+    first_chars = searchterm[0:3]
+    url = "http://images.comiccollectorlive.com/covers/" + first_chars + "/" + searchterm + ".jpg"
     if request.method == 'POST':
         if form.validate_on_submit:
             return redirect(url_for('search', title=form.search_text.data))
-    return render_template('home.html', theme=theme, form=form, comics=comics)
+    return render_template('home.html', theme=theme, form=form, comics=comics, url=url)
 
 
 @app.route('/home/<int:color_id>')
