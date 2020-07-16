@@ -135,3 +135,7 @@ img {
     right: 5px;
 }
 
+.issue:hover {
+    color: var(--primary);
+}
+

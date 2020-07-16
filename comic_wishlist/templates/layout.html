@@ -50,7 +50,7 @@
                     {{form.submit(class="btn-md btn-section")}}
                     </form>
                 </div>
-            <a class="header" href="{{url_for('index')}}"><h1>COMIC WISHLIST</h1></a>
+            <a class="header" href="{{url_for('index', title=form.search_text.data)}}"><h1>COMIC WISHLIST</h1></a>
             {% block content %}{% endblock %}
         </div>
 
