@@ -13,80 +13,68 @@
 
 </script>
 
-{% for comic in comics %}
-<div class="card">
-    <a class="card-head" data-toggle="collapse" href="#pressname1" role="button" aria-expanded="false" aria-controls="collapseExample">
-        {{comic.press}}<i class="fa fa-caret-down icon"></i>
-    </a>
 
-    <div class="collapse" id="pressname1">
-        <ul class="list-group">
-            <li class="list-group-item">
-                <div class="row">
-                    <div class="col-6">
-                        <a class="title" data-toggle="collapse" href="#spiderman" role="button" aria-expanded="false" aria-controls="collapseExample" onclick="toggleHidden('publisher_comic-name_year')">
-                        {{comic.title}}
-                        </a>
-                    </div>
-                    <div class="col-3">Year</div>
-                    <div class="col-3">10 iss.</div>
-                </div>
+{% for press in presses %}
+    <div class="card">
+        <a class="card-head" data-toggle="collapse" href="#{{press.name}}" role="button" aria-expanded="false" aria-controls="collapseExample">
+            {{press.name}}<i class="fa fa-caret-down icon"></i>
+        </a>
 
-<!--                    You will need to be able to hide this row when it becomes expanded and make it re-appear when-->
-<!--                    expansion is closed; I also think a "close" button at the bottom of this list may be helpful
-                    you could even make the button show up only if there are more than 20 comics in the list so you do not have to scroll back up to close-->
-                <div id="publisher_comic-name_year" style="display: block;">
-                      <small>1, 2, 3, 4, 5, 6, 7, 8, 10</small>
-                </div>
-
-                <ul class="list-group list-group-flush collapse" id="spiderman">
-                    <li class="list-group-item py-1">
-                        <a data-toggle="modal" data-target="#comiccover">
-                            1
-                        </a>
-                        <div class="modal fade" id="comiccover" tabindex="-1" role="dialog"
-                             aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered bd-example-modal-sm" role="document">
-                                <div class="modal-content">
-
-                                        <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close"><span aria-hidden="true">&times;</span>
-                                        </button>
-                                        <img src="{{url}}" alt="comic-image">
-
-                                </div>
-                              </div>
+        {% for comic in comics %}
+            <div class="collapse" id="{{press.name}}">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-6">
+                                <a class="title" data-toggle="collapse" href="#{{comic.title}}" role="button" aria-expanded="false" aria-controls="collapseExample" onclick="toggleHidden('publisher_comic-name_year')">
+                                    {{comic.title}}
+                                </a>
+                            </div>
+                            <div class="col-3">Year</div>
+                            <div class="col-3">10 iss.</div>
                         </div>
+
+        <!--                    You will need to be able to hide this row when it becomes expanded and make it re-appear when-->
+        <!--                    expansion is closed; I also think a "close" button at the bottom of this list may be helpful
+                            you could even make the button show up only if there are more than 20 comics in the list so you do not have to scroll back up to close-->
+                        <div id="publisher_comic-name_year" style="display: block;">
+                            <small>
+                                {% for issue in issues %}
+                                    {{issue.number}}
+                                {% endfor %}
+                            </small>
+                        </div>
+
+                        {% for issue in issues %}
+                        <ul class="list-group list-group-flush collapse" id="{{comic.title}}">
+                            <li class="list-group-item py-1">
+                                <div class="row">
+                                    <a class="col-6" data-toggle="modal" data-target="#comiccover">
+                                        {{issue.sub_title}}
+                                    </a>
+                                    <div class="modal fade" id="comiccover" tabindex="-1" role="dialog"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered bd-example-modal-sm" role="document">
+                                            <div class="modal-content">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close"><span aria-hidden="true">&times;</span>
+                                                </button>
+                                                <img src="{{url}}" alt="comic-image">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">{{issue.year}}</div>
+                                    <div class="col-2">{{issue.number}}</div>
+                                </div>
+                            </li>
+                        </ul>
+                        {% endfor %}
                     </li>
-                    <li class="list-group-item py-1">2</li>
-                    <li class="list-group-item py-1">3</li>
-                    <li class="list-group-item py-1">4</li>
-                    <li class="list-group-item py-1">5</li>
-                    <li class="list-group-item py-1">6</li>
                 </ul>
-            </li>
-
-          <li class="list-group-item">Spiderman</li>
-          <li class="list-group-item">Spiderman</li>
-          <li class="list-group-item">Spiderman</li>
-          <li class="list-group-item">Spiderman</li>
-        </ul>
+            </div>
+        {% endfor %}
     </div>
-</div>
 {% endfor %}
-
-<div class="card">
-    <a class="card-head" data-toggle="collapse" href="#pressname2" role="button" aria-expanded="false" aria-controls="collapseExample">
-        DC<i class="fa fa-caret-down icon"></i>
-    </a>
-
-    <div class="collapse" id="pressname2">
-        <div class=" card-body">
-
-        </div>
-    </div>
-
-</div>
 
 {% endblock %}
 
