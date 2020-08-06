@@ -1,29 +1,68 @@
 from flask import render_template, redirect, url_for, request
 from comic_wishlist import app, db
-from comic_wishlist.models import Colors, Comics, Issues, Presses
+from comic_wishlist.models import Colors
 from comic_wishlist.form import SearchForm
+from db import Db
+from find_data import WishlistData
+from find_collection import CollectionData
 
+wishlist = WishlistData()
+collection = CollectionData()
+
+comic_db = Db('comic_wishlist.db')
 
 @app.route('/', methods=['GET', 'POST'])
+@app.route('/index', methods=['GET', 'POST'])
 def index():
     theme = Colors.query.filter_by(selected=True).first()
-    presses = Presses.query.all()
-    comics = Comics.query.all()
-    issues = Issues.query.all()
-    searchterm = '0cffc2f2-7210-4b1c-a8c7-653e873677c6'
-    first_chars = searchterm[0:3]
-    url = "http://images.comiccollectorlive.com/covers/" + first_chars + "/" + searchterm + ".jpg"
+    comics = wishlist.parse_data()
+
     form = SearchForm()
 
     if request.method == 'POST':
         if form.validate_on_submit:
-            return redirect(url_for('search', title=form.search_text.data))
-    return render_template('home.html', theme=theme, form=form, presses=presses, comics=comics,
-                           url=url, issues=issues)
+            return redirect(url_for('search_wishlist', title=form.search_text.data))
+    return render_template('home.html', theme=theme, form=form, comics=comics)
 
 
+@app.route('/collection', methods=['GET', 'POST'])
+def find_collection():
+    theme = Colors.query.filter_by(selected=True).first()
+    comics = collection.parse_data()
+    form = SearchForm()
+    if request.method == 'POST':
+        if form.validate_on_submit:
+            return redirect(url_for('search_collection', title=form.search_text.data))
+    return render_template('collection.html', theme=theme, form=form, comics=comics)
 
-@app.route('/<int:color_id>')
+
+@app.route('/search_wishlist/<string:title>', methods=['GET', 'POST'])
+def search_wishlist(title):
+    titles = []
+    theme = Colors.query.filter_by(selected=True).first()
+    form = SearchForm()
+    titles.append(title.lower())
+    comics = wishlist.parse_data()
+    if request.method == 'POST':
+        if form.validate_on_submit:
+            return redirect(url_for('search_wishlist', title=form.search_text.data))
+    return render_template('home.html', theme=theme, form=form, comics=comics, titles=titles)
+
+
+@app.route('/collection/<string:title>', methods=['GET', 'POST'])
+def search_collection(title):
+    titles = []
+    theme = Colors.query.filter_by(selected=True).first()
+    form = SearchForm()
+    titles.append(title.lower())
+    comics = collection.parse_data()
+    if request.method == 'POST':
+        if form.validate_on_submit:
+            return redirect(url_for('search_collection', title=form.search_text.data))
+    return render_template('collection.html', theme=theme, form=form, comics=comics, titles=titles)
+
+
+@app.route('/home/<int:color_id>')
 def select_color(color_id):
     Colors.query.get_or_404(color_id).selected = True
     unchosen_themes = Colors.query.filter(Colors.color_id != color_id).all()
@@ -31,19 +70,3 @@ def select_color(color_id):
         unchosen_theme.selected = False
         db.session.commit()
     return redirect(url_for('index'))
-
-
-@app.route('/<string:title>', methods=['GET', 'POST'])
-def search(title):
-    theme = Colors.query.filter_by(selected=True).first()
-    comics = Comics.query.all()
-    searchterm = '0cffc2f2-7210-4b1c-a8c7-653e873677c6'
-    first_chars = searchterm[0:3]
-    url = "http://images.comiccollectorlive.com/covers/" + first_chars + "/" + searchterm + ".jpg"
-    form = SearchForm()
-    search_results = Comics.query.filter_by(title=title).order_by(Comics.title.desc())
-    if request.method == 'POST':
-        if form.validate_on_submit:
-            return redirect(url_for('search', title=form.search_text.data))
-    return render_template('search.html', theme=theme, form=form, search_results=search_results, title=title, comics=comics, url=url)
-
