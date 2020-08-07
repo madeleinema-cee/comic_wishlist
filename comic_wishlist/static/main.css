@@ -1,4 +1,3 @@
-
 body {
     background-color: var(--bgcolor);
     color: var(--secondary);
@@ -6,11 +5,7 @@ body {
     font-family: var(--main-font);
 }
 
-.header:hover {
-    color: var(--bgcolor);
-    text-decoration: none;
-}
-h1 {
+.header {
     margin: auto;
     width: 90%;
     text-align: center;
@@ -18,17 +13,44 @@ h1 {
     color: var(--primary);
 }
 
+a {
+    color: var(--primary
+    );
+}
+
+a:hover {
+    text-decoration: none;
+    color: var(--mute);
+}
+
+
+
 .setting {
     float: right;
     color: var(--mute);
     padding-left: 5px;
-
 }
 
 .setting:hover {
     color: var(--third);
 }
 
+
+.content {
+    margin: auto;
+    width: 90%;
+    text-align: center;
+    color: var(--mute);
+    padding-bottom: 10px;
+}
+
+.utilities {
+    color: var(--mute);
+}
+
+.utilities:hover {
+    color: var(--primary);
+}
 
 .card {
     border-radius: 5px;
@@ -65,8 +87,12 @@ h1 {
 }
 
 .title:hover{
-    color: var(--third);
+    color: var(--bgcolor);
     text-decoration: none;
+}
+
+.subtitle {
+    color: var(--primary);
 }
 
 .color-theme {
@@ -94,6 +120,18 @@ h1 {
 
 .theme-dot-blue {
     background-color: #CEDFF3;
+}
+
+.theme-dot-pink {
+    background-color: #cb997e;
+}
+
+.theme-dot-teal {
+    background-color: #83c5be;
+}
+
+.theme-dot-yellow {
+    background-color: #f95738;
 }
 
 .search {
@@ -135,7 +173,84 @@ img {
     right: 5px;
 }
 
+.year {
+    width: 4ch;
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.date {
+    width: 9ch;
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.issue {
+    color: var(--secondary);
+    font-weight: bolder;
+}
+
 .issue:hover {
     color: var(--primary);
 }
 
+.issuenumbers {
+    color: var(--secondary);
+    font-weight: bolder;
+}
+
+.fa-chevron-down,
+.fa-chevron-up,
+.fa-file-image,
+.fa-book{
+    padding-left: 5px;
+}
+
+
+.close-icon {
+    cursor: pointer;
+
+
+}
+
+.searchtitle {
+    color: var(--third);
+    padding-bottom: 5px;
+}
+
+.card-header {
+    color: var(--primary)
+}
+
+.card-header:hover {
+    color: var(--secondary);
+}
+
+.image {
+    height: 30px;
+    width: 30px;
+    position: fixed;
+    right: 5px;
+    bottom: 5px;
+}
+
+button {
+    display: inline-block;
+    float: right;
+    color: var(--third);
+    background: none;
+    border: none;
+}
+
+button:hover {
+    color: var(--primary);
+}
+
+footer{
+    color: var(--mute);
+    font-size: smaller;
+    text-align: center;
+    padding-top: 10px;
+}

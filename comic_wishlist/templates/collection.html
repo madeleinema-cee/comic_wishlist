@@ -1,6 +1,5 @@
 {% extends "layout.html" %}
 {% block content %}
-
 <script>
     function replaceIcon(divid, class1, class2) {
         var element = document.getElementById(divid);
@@ -26,7 +25,6 @@
     }
 
 </script>
-
 <a class="setting" data-toggle="collapse" href="#search" aria-expanded="false" aria-controls="colortheme"><i class="fa fa-search" style="font-size:24px"></i></a>
     <div class="collapse" id="search">
         <form action="" method="post">
@@ -36,11 +34,11 @@
     </div>
 
 <div class="header">
-    <h1>COMIC WISHLIST</h1>
+    <h1>ACTIVE COLLECTIONS</h1>
 </div>
 
 <div class="content">
-    <a class="utilities" href="{{url_for('find_collection')}}">ACTIVE COLLECTIONS</a> |
+    <a class="utilities" href="{{url_for('index')}}">COMIC WISHLIST</a> |
     <a class="utilities" href="#">UTILITIES</a>
 </div>
 
@@ -76,9 +74,7 @@
                             {% endfor %}
                         </div>
                         <i class="fa fa-caret-down icon" id="icon{{comic_list[key][0]['title_id']}}"></i>
-
                     </a>
-
 
                     {% for comic in comic_list[key]%}
                         <ul class="list-group list-group-flush collapse panel-collapse" id="title{{comic_list[key][0]['title_id']}}">
@@ -208,6 +204,7 @@
         $('.fa-caret-up').toggleClass("fa-caret-down fa-caret-up");
     });
 </script>
+
 
 {% endblock %}
 
