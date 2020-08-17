@@ -36,7 +36,9 @@
 
     <body>
         <div class="container">
-            <a class="setting" data-toggle="collapse" href="#colortheme" aria-expanded="false" aria-controls="colortheme"><i class="fa fa-gear" style="font-size:24px"></i></a>
+            <a class="setting" data-toggle="collapse" href="#colortheme" aria-expanded="false"
+               aria-controls="colortheme"><i class="fa fa-gear" style="font-size:15px"></i>
+            </a>
 
             <div class="collapse" id="colortheme">
                 <div class="color-theme">
@@ -47,6 +49,46 @@
                     <a class="theme-dot-yellow" href="{{url_for('select_color', color_id=5)}}"></a>
                 </div>
             </div>
+
+
+            <a class="setting" data-toggle="modal" data-target="#download" href="#">
+                <i class="fa fa-download" style="font-size:15px"></i>
+            </a>
+            <div class="modal fade" id="download" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ModalLabel">DOWNLOAD AS EXCEL</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            <a class="download" href="{{url_for('download_excel', wishlist=True, one_sheet=True)}}">
+                                <i class="fa fa-download" style="font-size:15px"></i>
+                                WISHLIST (ONE WORKSHEET)
+                            </a>
+                            <a class="download" href="{{url_for('download_excel', wishlist=True, one_sheet=False)}}">
+                            <i class="fa fa-download" style="font-size:15px"></i>
+                                WISHLIST (MULTIPLE WORKSHEETS)
+                            </a>
+
+                            <a class="download" href="{{url_for('download_excel', wishlist=False, one_sheet=True)}}">
+                                <i class="fa fa-download" style="font-size:15px"></i>
+                                COLLECTION (ONE WORKSHEET)
+                            </a>
+                            <a class="download" href="{{url_for('download_excel', wishlist=False, one_sheet=False)}}">
+                                <i class="fa fa-download" style="font-size:15px"></i>
+                                COLLECTION (MULTIPLE WORKSHEETS)
+                            </a>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn-section" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             {% block content %}{% endblock %}
 
@@ -64,8 +106,7 @@
 
         {% block script %}{% endblock %}
         <footer>
-            <div>Made by <a class="copy-link" href="https://github.com/mayue3081249">Madeleine Ma</a> and
-                <a class="copy-link" href="https://github.com/domdit"> Dominic DiTaranto</a>|&copy;Copyright 2020
+            <div>Made by <a class="copy-link" href="https://github.com/mayue3081249">Madeleine Ma</a>&copy;Copyright 2020
             </div>
         </footer>
     </body>

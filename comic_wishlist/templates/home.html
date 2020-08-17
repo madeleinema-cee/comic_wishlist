@@ -27,7 +27,7 @@
 
 </script>
 
-<a class="setting" data-toggle="collapse" href="#search" aria-expanded="false" aria-controls="colortheme"><i class="fa fa-search" style="font-size:24px"></i></a>
+<a class="setting" data-toggle="collapse" href="#search" aria-expanded="false" aria-controls="colortheme"><i class="fa fa-search" style="font-size:15px"></i></a>
     <div class="collapse" id="search">
         <form action="" method="post">
         {{form.search_text(class="form-control-md search", placeholder="Title")}}
@@ -41,7 +41,7 @@
 
 <div class="content">
     <a class="utilities" href="{{url_for('find_collection')}}">ACTIVE COLLECTIONS</a> |
-    <a class="utilities" href="#">UTILITIES</a>
+    <a class="utilities" href="{{url_for('utilities')}}">UTILITIES</a>
 </div>
 
 <div id="searchitems">
@@ -100,9 +100,9 @@
                                         <small class="date">{{comic['date']}}</small>
                                     </div>
                                 </div>
-                                <div class="modal fade" id="comic{{comic['cover_id']}}" tabindex="-1" role="dialog"
+                                <div class="modal fade bd-example-modal-sm" id="comic{{comic['cover_id']}}" tabindex="-1" role="dialog"
                                      aria-labelledby="ModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered bd-example-modal-sm" role="document">
+                                    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                                         <div class="modal-content">
                                             <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close"><span aria-hidden="true">&times;</span>
@@ -175,9 +175,9 @@
                                             <small class="date">{{issue['date']}}</small>
                                         </div>
                                     </div>
-                                    <div class="modal fade" id="issue{{issue['cover_id']}}" tabindex="-1" role="dialog"
+                                    <div class="modal fade bd-example-modal-sm" id="issue{{issue['cover_id']}}" tabindex="-1" role="dialog"
                                          aria-labelledby="ModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered bd-example-modal-sm" role="document">
+                                        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                                             <div class="modal-content">
                                                 <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close"><span aria-hidden="true">&times;</span>

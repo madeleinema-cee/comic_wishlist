@@ -9,21 +9,11 @@ body {
     margin: auto;
     width: 90%;
     text-align: center;
+    padding-left: 10px;
+
     font-family: var(--title);
     color: var(--primary);
 }
-
-a {
-    color: var(--primary
-    );
-}
-
-a:hover {
-    text-decoration: none;
-    color: var(--mute);
-}
-
-
 
 .setting {
     float: right;
@@ -101,8 +91,8 @@ a:hover {
 }
 
 [class*="theme-dot-"]{
-    height: 40px;
-    width: 40px;
+    height: 30px;
+    width: 30px;
     border-radius: 50%;
     display: inline-block;
     padding-right: 10px;
@@ -211,8 +201,6 @@ img {
 
 .close-icon {
     cursor: pointer;
-
-
 }
 
 .searchtitle {
@@ -249,8 +237,43 @@ button:hover {
 }
 
 footer{
+    position: relative;
+    bottom: 5px;
+    margin: auto;
+    width: 90%;
     color: var(--mute);
     font-size: smaller;
     text-align: center;
-    padding-top: 10px;
+    padding-top: 20px;
+}
+
+.download {
+    padding: 10px;
+    margin: 10px;
+    display: block;
+    color: var(--bgcolor);
+}
+
+.download:hover{
+    text-decoration: none;
+    color: var(--primary);
+}
+
+
+
+.modal-title{
+    margin: auto;
+    text-align: center;
+    width: 90%;
+    font-family: var(--title);
+    font-size: 30px;
+}
+
+.copy-link {
+    color: var(--primary);
+}
+
+.copy-link:hover {
+    text-decoration: none;
+    color: var(--mute);
 }

@@ -1,28 +1,32 @@
 from db import Db
 
 
-class WishlistData:
-    def __init__(self):
+class ComicData:
+    def __init__(self, wishlist = False):
         self.db = Db('comic_wishlist.db')
+        if wishlist:
+            query = '''
+                   select p.PublisherName, c.title, c.covertitleid, i.issuenumber, i.issueid, i.coverdate, i.covervariantdescription from WishList w
+                   join Issue i on  w.issueid = i.IssueId
+                   Join CoverTitle c on i.covertitleid = c.covertitleid
+                   join Publisher p on p.publisherid = c.publisherid
+                   Order by PublisherName, title, issuenumber
+                   '''
 
-    # Issue.coverdate, issue.covervariant, issue.covervariantdescription, Issue.version
+            self.results = self.db.fetchall(query)
+        else:
+            query = '''
+                    select p.PublisherName, c.title, c.covertitleid, i.issuenumber, i.issueid, i.coverdate, i.covervariantdescription from Issue i
+                    Join CoverTitle c on i.covertitleid = c.covertitleid
+                    join Publisher p on p.publisherid = c.publisherid
+                    Order by PublisherName, title, issuenumber
+                    '''
 
-    def retrieve_data(self):
-        query = '''
-        select p.PublisherName, c.title, c.covertitleid, i.issuenumber, i.issueid, i.coverdate, i.covervariantdescription from WishList w
-        join Issue i on  w.issueid = i.IssueId
-        Join CoverTitle c on i.covertitleid = c.covertitleid
-        join Publisher p on p.publisherid = c.publisherid
-        Order by PublisherName, title, issuenumber
-        '''
-
-        results = self.db.fetchall(query)
-        return results
+            self.results = self.db.fetchall(query)
 
     def parse_data(self):
         data = {}
-
-        for row in self.retrieve_data():
+        for row in self.results:
             pub_name = row['PublisherName']
 
             if pub_name not in data:
@@ -54,11 +58,9 @@ class WishlistData:
                          'desc': row['CoverVariantDescription'],
                          'issue_id': row['IssueID'],
                          'cover_id': row['IssueID'][0:3]})
-
         return data
 
 
 if __name__ == '__main__':
-    d = WishlistData()
-    d.retrieve_data()
+    d = ComicData()
     d.parse_data()

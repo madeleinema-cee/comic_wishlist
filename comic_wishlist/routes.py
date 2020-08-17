@@ -2,23 +2,18 @@ from flask import render_template, redirect, url_for, request
 from comic_wishlist import app, db
 from comic_wishlist.models import Colors
 from comic_wishlist.form import SearchForm
-from db import Db
-from find_data import WishlistData
-from find_collection import CollectionData
+from find_data import ComicData
+from download_data import ExcelCovert
 
-wishlist = WishlistData()
-collection = CollectionData()
-
-comic_db = Db('comic_wishlist.db')
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     theme = Colors.query.filter_by(selected=True).first()
-    comics = wishlist.parse_data()
+    comics = ComicData(wishlist=True)
+    comics = comics.parse_data()
 
     form = SearchForm()
-
     if request.method == 'POST':
         if form.validate_on_submit:
             return redirect(url_for('search_wishlist', title=form.search_text.data))
@@ -28,7 +23,9 @@ def index():
 @app.route('/collection', methods=['GET', 'POST'])
 def find_collection():
     theme = Colors.query.filter_by(selected=True).first()
-    comics = collection.parse_data()
+    comics = ComicData(wishlist=False)
+    comics = comics.parse_data()
+
     form = SearchForm()
     if request.method == 'POST':
         if form.validate_on_submit:
@@ -40,9 +37,11 @@ def find_collection():
 def search_wishlist(title):
     titles = []
     theme = Colors.query.filter_by(selected=True).first()
-    form = SearchForm()
     titles.append(title.lower())
-    comics = wishlist.parse_data()
+    comics = ComicData(wishlist=True)
+    comics = comics.parse_data()
+
+    form = SearchForm()
     if request.method == 'POST':
         if form.validate_on_submit:
             return redirect(url_for('search_wishlist', title=form.search_text.data))
@@ -53,9 +52,11 @@ def search_wishlist(title):
 def search_collection(title):
     titles = []
     theme = Colors.query.filter_by(selected=True).first()
-    form = SearchForm()
     titles.append(title.lower())
-    comics = collection.parse_data()
+    comics = ComicData(wishlist=False)
+    comics = comics.parse_data()
+
+    form = SearchForm()
     if request.method == 'POST':
         if form.validate_on_submit:
             return redirect(url_for('search_collection', title=form.search_text.data))
@@ -70,3 +71,21 @@ def select_color(color_id):
         unchosen_theme.selected = False
         db.session.commit()
     return redirect(url_for('index'))
+
+
+@app.route('/utilities')
+def utilities():
+    theme = Colors.query.filter_by(selected=True).first()
+
+    return render_template('utilities.html', theme=theme)
+
+
+@app.route('/utilities/<wishlist>/<one_sheet>')
+def download_excel(wishlist, one_sheet):
+    e = ExcelCovert(wishlist=wishlist, one_sheet=one_sheet)
+    if one_sheet == 'True':
+        e.download_one_sheet()
+    else:
+        e.download_multi_sheet()
+    return redirect(url_for('index'))
+

@@ -6,7 +6,6 @@ import pprint
 pp = pprint.PrettyPrinter(indent=2)
 import pdb
 
-import pandas as pd
 
 class Db:
     def __init__(self, database, db_file=None):
