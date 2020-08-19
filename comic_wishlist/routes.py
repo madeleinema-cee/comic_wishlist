@@ -11,7 +11,7 @@ from download_data import ExcelCovert
 def index():
     theme = Colors.query.filter_by(selected=True).first()
     comics = ComicData(wishlist=True)
-    comics = comics.parse_data()
+    comics = comics.parse_data(wishlist=True)
 
     form = SearchForm()
     if request.method == 'POST':
@@ -24,7 +24,7 @@ def index():
 def find_collection():
     theme = Colors.query.filter_by(selected=True).first()
     comics = ComicData(wishlist=False)
-    comics = comics.parse_data()
+    comics = comics.parse_data(wishlist=False)
 
     form = SearchForm()
     if request.method == 'POST':
@@ -39,7 +39,7 @@ def search_wishlist(title):
     theme = Colors.query.filter_by(selected=True).first()
     titles.append(title.lower())
     comics = ComicData(wishlist=True)
-    comics = comics.parse_data()
+    comics = comics.parse_data(wishlist=True)
 
     form = SearchForm()
     if request.method == 'POST':
@@ -54,7 +54,7 @@ def search_collection(title):
     theme = Colors.query.filter_by(selected=True).first()
     titles.append(title.lower())
     comics = ComicData(wishlist=False)
-    comics = comics.parse_data()
+    comics = comics.parse_data(wishlist=False)
 
     form = SearchForm()
     if request.method == 'POST':

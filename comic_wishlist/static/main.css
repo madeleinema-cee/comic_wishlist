@@ -40,6 +40,7 @@ body {
 
 .utilities:hover {
     color: var(--primary);
+    text-decoration: none;
 }
 
 .card {
@@ -52,12 +53,11 @@ body {
 .card-head {
     border-radius: 5px;
     background-color: var(--mute);
-    padding: 10px;
+    padding: 5px 10px;
     border: 1px var(--mute);
     color: var(--primary);
     font-family: var(--title);
     font-size: x-large;
-    padding-left: 20px;
 }
 
 
@@ -191,6 +191,10 @@ img {
     font-weight: bolder;
 }
 
+.issuenumbers:hover{
+    text-decoration: none;
+}
+
 .fa-chevron-down,
 .fa-chevron-up,
 .fa-file-image,
@@ -209,11 +213,13 @@ img {
 }
 
 .card-header {
-    color: var(--primary)
+    color: var(--primary);
+    font-size: smaller;
 }
 
 .card-header:hover {
     color: var(--secondary);
+    text-decoration: none;
 }
 
 .image {
@@ -276,4 +282,12 @@ footer{
 .copy-link:hover {
     text-decoration: none;
     color: var(--mute);
+}
+
+.col-3 {
+    padding: 0;
+}
+
+.list-group {
+    padding: 0;
 }

@@ -59,19 +59,19 @@
                            aria-controls="collapse" onclick="replaceIcon('icon{{comic_list[key][0]['title_id']}}', 'fa-caret-down', 'fa-caret-up')">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-4">
+                                <div class="col-3">
                                     {{ key }}
                                 </div>
-                                <div class="col-5">
+                                <div class="col-3">
                                     {{pub}}
                                 </div>
                                 <div class="col-3">
                                     {{comic_list[key]|length}}<i class="fas fa-book"></i>
                                 </div>
+                                <div class="col-3">
+                                        {{comic_list[key][0]['cover_desc']}}
+                                </div>
                             </div>
-                            {% for comic in comic_list[key]%}
-                                {{comic['issue_number']}}{% if not loop.last %},{% endif %}
-                            {% endfor %}
                         </div>
                         <i class="fa fa-caret-down icon" id="icon{{comic_list[key][0]['title_id']}}"></i>
                     </a>
@@ -80,15 +80,15 @@
                         <ul class="list-group list-group-flush collapse panel-collapse" id="title{{comic_list[key][0]['title_id']}}">
                             <li class="list-group-item py-1">
                                 <div class="row">
-                                    <div class="col-2">
-                                        {{comic['issue_number']}}
+                                    <div class="col-3">
+                                        <small>{{comic['issue_number']}} {{comic['desc']}}</small>
                                     </div>
-                                    <div class="col-5">
-                                        <small>{{comic['desc']}}</small>
+                                    <div class="col-4">
+                                        <small>{{comic['color']}}-{{comic['score']}} {{comic['comment']}}</small>
                                      </div>
                                     <div class="col-2">
-                                        <a data-toggle="modal" data-target="#comic{{comic['cover_id']}}"
-                                           onclick="lazyLoadImage('image{{comic['cover_id']}}')">
+                                        <a data-toggle="modal" data-target="#comic{{comic['issue_id']}}"
+                                           onclick="lazyLoadImage('image{{comic['issue_id']}}')">
                                          <small><i class='far fa-file-image issue'></i></small>
                                         </a>
                                     </div>
@@ -96,15 +96,15 @@
                                         <small class="date">{{comic['date']}}</small>
                                     </div>
                                 </div>
-                                <div class="modal fade" id="comic{{comic['cover_id']}}" tabindex="-1" role="dialog"
+                                <div class="modal fade" id="comic{{comic['issue_id']}}" tabindex="-1" role="dialog"
                                      aria-labelledby="ModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close"><span aria-hidden="true">&times;</span>
                                             </button>
                                             <img data-src="http://images.comiccollectorlive.com/covers/{{comic['cover_id']}}/{{comic['issue_id']}}.jpg"
-                                                 id="image{{comic['cover_id']}}" alt="comic-image" data-loaded="0">
+                                                 id="image{{comic['issue_id']}}" alt="comic-image" data-loaded="0">
                                         </div>
                                     </div>
                                 </div>
@@ -130,40 +130,31 @@
                 <ul class="list-group">
                     <li class="list-group-item py-1">
                         <div class="row">
-                            <div class="col-7">
+                            <div class="col-4">
                                 <a class="title" data-toggle="collapse" href="#title{{issues[0]['title_id']}}" role="button" aria-expanded="false" aria-controls="collapse" onclick="toggleHidden('{{issues[0]['title_id']}}'); replaceIcon('chevron{{issues[0]['title_id']}}', 'fa-chevron-down', 'fa-chevron-up') ">
                                     {{title}}<i class='fas fa-chevron-down' id="chevron{{issues[0]['title_id']}}"></i>
                                 </a>
                             </div>
 
-                            <div class="col-2 subtitle">{{issues|length}} <i class="fas fa-book"></i></div>
-                            <div class="col-3 subtitle">
-                                    {% if issues[0]['date'] == issues[-1]['date'] %}
-                                        <div class="year">{{issues[0]['date']}}</div>
-                                    {% else %}
-                                        <div class="year">{{issues[0]['date']}}</div>¯<div class="year">{{issues[-1]['date']}}</div>
-                                    {% endif %}
+                            <div class="col-3 subtitle"><small>{{issues|length}}<i class="fas fa-book"></i></small></div>
+                            <div class="col-5 subtitle">
+                                {{issues[0]['cover_desc']}}
                             </div>
-                        </div>
-
-                        <div class="col-6" id="{{issues[0]['title_id']}}" style="display: block;">
-                            {% for issue in issues %}
-                                <small class="issuenumbers">{{issue['issue_number']}}{% if not loop.last %},{% endif %}</small>
-                            {% endfor %}
                         </div>
 
                         <ul class="list-group list-group-flush collapse" id="title{{issues[0]['title_id']}}">
                             {% for issue in issues %}
                                 <li class="list-group-item py-1">
                                     <div class="row">
-                                        <div class="col-2">
-                                            <small>{{issue['issue_number']}}</small>
+                                        <div class="col-4">
+                                            <small>{{issue['issue_number']}} {{issue['desc']}}</small>
                                         </div>
-                                        <div class="col-5">
-                                            <small>{{issue['desc']}}</small>
+                                        <div class="col-3">
+                                            <small>{{issue['color']}}-{{issue['score']}} {{issue['comment']}}</small>
                                         </div>
+
                                         <div class="col-2">
-                                            <a data-toggle="modal" data-target="#issue{{issue['cover_id']}}" onclick="lazyLoadImage('img{{issue['cover_id']}}')">
+                                            <a data-toggle="modal" data-target="#issue{{issue['issue_id']}}" onclick="lazyLoadImage('img{{issue['issue_id']}}')">
                                                 <small><i class='far fa-file-image issue'></i></small>
                                             </a>
                                         </div>
@@ -171,14 +162,14 @@
                                             <small class="date">{{issue['date']}}</small>
                                         </div>
                                     </div>
-                                    <div class="modal fade" id="issue{{issue['cover_id']}}" tabindex="-1" role="dialog"
+                                    <div class="modal fade" id="issue{{issue['issue_id']}}" tabindex="-1" role="dialog"
                                          aria-labelledby="ModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close"><span aria-hidden="true">&times;</span>
                                                 </button>
-                                                <img data-src="http://images.comiccollectorlive.com/covers/{{issue['cover_id']}}/{{issue['issue_id']}}.jpg" id="img{{issue['cover_id']}}" alt="comic-image" data-loaded="0">
+                                                <img data-src="http://images.comiccollectorlive.com/covers/{{issue['cover_id']}}/{{issue['issue_id']}}.jpg" id="img{{issue['issue_id']}}" alt="comic-image" data-loaded="0">
                                             </div>
                                         </div>
                                     </div>
