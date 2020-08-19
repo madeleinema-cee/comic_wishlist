@@ -23,17 +23,17 @@ class Db:
 
         self.insert_data_to_be_replaced = [('{ts ', ''), ('}', ''), (',N\'', ',\''), ('*', '')]
 
-        # if self.db_file:
+        if self.db_file:
         #     os.remove(database)
-        #     self.conn = sqlite3.connect(database, check_same_thread=False)
+            self.conn = sqlite3.connect(database, check_same_thread=False)
         #     # with open(self.db_file, 'r', encoding='utf-16') as f:
         #
         #         # self.conn.executescript(f.read().replace('GO', '').replace('{ts ', '').replace('INSERT INTO', '').replace(';', '').\
         #         #     replace('}', '').replace(',N\'', ',\'').replace('*', ''))
         #         # self.conn.commit()
         #     self.cursor = self.conn.cursor()
-        #     # self.parse_database_file()
-        #     # self.insert_query()
+            self.parse_database_file()
+            self.insert_query()
 
     def execute(self, query):
         self.cursor.execute(query)
@@ -63,7 +63,7 @@ class Db:
                     table_mode = False
 
                 if table_mode is False:
-                    tables = ['[User]']
+                    tables = ['[UserIssue]']
                     for table in tables:
                         if table in line:
                             self.table = table
@@ -129,10 +129,9 @@ class Db:
 
 
             # pp.pprint(self.vals)
-            # Some values have more than the statement bindings supplied. See scratch_2.txt
             self.executemany(stmt, self.vals)
-            # print(self.vals)
-            # print(stmt)
+            print(self.vals)
+            print(stmt)
 
         except Exception as e:
             print(f'{e}\n{self.data}\n\n')

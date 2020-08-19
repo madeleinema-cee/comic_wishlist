@@ -7,20 +7,20 @@ class ExcelCovert:
         if one_sheet == 'False':
             if wishlist == 'True':
                 w = ComicData(wishlist=True)
-                self.data = w.parse_data()
+                self.data = w.parse_data(wishlist=True)
                 self.output_file = 'wishlist(multi_sheet).xlsx'
             else:
                 c = ComicData(wishlist=False)
-                self.data = c.parse_data()
+                self.data = c.parse_data(wishlist=False)
                 self.output_file = 'collection(multi_sheet).xlsx'
         else:
             if wishlist == 'True':
                 w = ComicData(wishlist=True)
-                self.data = w.parse_data()
+                self.data = w.parse_data(wishlist=True)
                 self.output_file = 'wishlist(one_sheet).xlsx'
             else:
                 c = ComicData(wishlist=False)
-                self.data = c.parse_data()
+                self.data = c.parse_data(wishlist=False)
                 self.output_file = 'collection(one_sheet).xlsx'
 
         self.workbook = xlsxwriter.Workbook(self.output_file)
@@ -29,12 +29,11 @@ class ExcelCovert:
 
         self.row = 0
 
-    def download_multi_sheet(self):
+    def download_multi_sheet(self, wishlist='False'):
         for pub, comic_list in self.data.items():
             self.row = 1
             self.worksheet = self.workbook.add_worksheet(
                 self.format_publisher_for_sheet_name(pub))
-            self.write_headers_multi_sheet()
             for title, issues in comic_list.items():
                 for issue in issues:
                     self.write_issue_data_to_output_file(title, issue)
@@ -50,9 +49,10 @@ class ExcelCovert:
                 for issue in issues:
                     self.worksheet.write(self.row, 0, pub)
                     self.worksheet.write(self.row, 1, title)
-                    self.worksheet.write(self.row, 2, issue['issue_number'])
-                    self.worksheet.write(self.row, 3, issue['date'])
-                    self.worksheet.write(self.row, 4, issue['desc'])
+                    self.worksheet.write(self.row, 2, issue['cover_desc'])
+                    self.worksheet.write(self.row, 3, issue['issue_number'])
+                    self.worksheet.write(self.row, 4, issue['date'])
+                    self.worksheet.write(self.row, 5, issue['desc'])
                     self.row += 1
         self.workbook.close()
 
@@ -68,21 +68,24 @@ class ExcelCovert:
         self.worksheet = self.workbook.add_worksheet()
         self.worksheet.write(0, 0, 'Publisher', self.bold_format)
         self.worksheet.write(0, 1, 'Title', self.bold_format)
+        self.worksheet.write(0, 2, 'Description', self.bold_format)
+        self.worksheet.write(0, 3, 'IssueNumber', self.bold_format)
+        self.worksheet.write(0, 4, 'CoverDate', self.bold_format)
+        self.worksheet.write(0, 5, 'CoverVariantDescription', self.bold_format)
+
+    def write_headers_multi_sheet(self):
+        self.worksheet.write(0, 0, 'Title', self.bold_format)
+        self.worksheet.write(0, 1, 'Description', self.bold_format)
         self.worksheet.write(0, 2, 'IssueNumber', self.bold_format)
         self.worksheet.write(0, 3, 'CoverDate', self.bold_format)
         self.worksheet.write(0, 4, 'CoverVariantDescription', self.bold_format)
 
-    def write_headers_multi_sheet(self):
-        self.worksheet.write(0, 0, 'Title', self.bold_format)
-        self.worksheet.write(0, 1, 'IssueNumber', self.bold_format)
-        self.worksheet.write(0, 2, 'CoverDate', self.bold_format)
-        self.worksheet.write(0, 3, 'CoverVariantDescription', self.bold_format)
-
     def write_issue_data_to_output_file(self, title, issue):
         self.worksheet.write(self.row, 0, title)
-        self.worksheet.write(self.row, 1, issue['issue_number'])
-        self.worksheet.write(self.row, 2, issue['date'])
-        self.worksheet.write(self.row, 3, issue['desc'])
+        self.worksheet.write(self.row, 1, issue['cover_desc'])
+        self.worksheet.write(self.row, 2, issue['issue_number'])
+        self.worksheet.write(self.row, 3, issue['date'])
+        self.worksheet.write(self.row, 4, issue['desc'])
 
 
 if __name__ == '__main__':
