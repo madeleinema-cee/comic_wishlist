@@ -70,6 +70,7 @@ body {
     position: absolute;
     right: 10px;
     top: 15px;
+    padding-right: 3px;
 }
 
 .title {
@@ -290,4 +291,26 @@ footer{
 
 .list-group {
     padding: 0;
+}
+
+.advanced {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.advance_search {
+    width: 80px;
+}
+
+
+.grade {
+    color: var(--mute);
+}
+
+.time {
+    display: inline-block;
+}
+
+.desc {
+    padding-right: 10px;
 }
