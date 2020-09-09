@@ -130,8 +130,6 @@ class Db:
 
             # pp.pprint(self.vals)
             self.executemany(stmt, self.vals)
-            print(self.vals)
-            print(stmt)
 
         except Exception as e:
             print(f'{e}\n{self.data}\n\n')
