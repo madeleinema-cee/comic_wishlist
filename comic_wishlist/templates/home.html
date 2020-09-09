@@ -237,7 +237,10 @@
                     <li class="list-group-item py-1">
                         <div class="row">
                             <div class="col-4">
-                                <a class="title" data-toggle="collapse" href="#title{{issues[0]['title_id']}}" role="button" aria-expanded="false" aria-controls="collapse" onclick="toggleHidden('{{issues[0]['title_id']}}'); replaceIcon('chevron{{issues[0]['title_id']}}', 'fa-chevron-down', 'fa-chevron-up') ">
+                                <a class="title" data-toggle="collapse" href="#title{{issues[0]['title_id']}}"
+                                   role="button" aria-expanded="false" aria-controls="collapse"
+                                   onclick="toggleHidden('{{issues[0]['title_id']}}');
+                                   replaceIcon('chevron{{issues[0]['title_id']}}', 'fa-chevron-down', 'fa-chevron-up')">
                                     {{title}}<i class='fas fa-chevron-down' id="chevron{{issues[0]['title_id']}}"></i>
                                 </a>
                             </div>
@@ -254,7 +257,7 @@
                             {% endfor %}
                         </div>
 
-                        <ul class="list-group list-group-flush collapse" id="title{{issues[0]['title_id']}}">
+                        <ul class="list-group list-group-flush collapse panel-collapse" id="title{{issues[0]['title_id']}}">
                             {% for issue in issues %}
                                 <li class="list-group-item py-1">
                                     <div class="row">

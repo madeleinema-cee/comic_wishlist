@@ -1,4 +1,3 @@
-
 import pdb
 import sys
 import sqlite3
@@ -74,7 +73,7 @@ class Db:
 
             self.insert = False
 
-        if 'INSERT INTO' in line and 'UserIssue' in line:
+        if 'INSERT INTO' in line and '[Issue]' in line:
             self.insert = True
             self.current_query = []
 

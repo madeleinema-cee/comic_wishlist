@@ -3,7 +3,7 @@ from db import Db
 
 class ComicData:
     def __init__(self, wishlist=False, query=None):
-        self.db = Db('comic_wishlist.db')
+        self.db = Db('comic_wishlist (2).db')
         if wishlist:
             if query is None:
                 query = '''
