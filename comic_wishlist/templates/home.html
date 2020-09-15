@@ -1,0 +1,319 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<script>
+    function replaceIcon(divid, class1, class2) {
+        var element = document.getElementById(divid);
+        if (element.classList.contains(class1)) {
+            element.classList.replace(class1, class2)
+        } else {
+            element.classList.replace(class2, class1)
+        }
+    }
+
+    function toggleHidden(divId) {
+        row = document.getElementById(divId);
+        if (row.style.display === 'none') {
+            row.style.display = 'block'
+        } else {
+            row.style.display = 'none'
+        }
+    }
+
+    function lazyLoadImage(id) {
+      element = document.getElementById(id);
+      element.src = element.dataset.src;
+    }
+
+
+</script>
+
+<a class="setting" data-toggle="collapse" href="#search" aria-expanded="false" aria-controls="colortheme"><i class="fa fa-search" style="font-size:15px"></i></a>
+    <div class="collapse" id="search">
+        <form action="" method="post" id="basic_search">
+        {{search_form.search_text(class="form-control-md search", placeholder="Title")}}
+        {{search_form.submit1(class="btn-md btn-section")}}
+        </form>
+
+         <div class="collapse advanced" id="advanced">
+             <form action="" method="post" id="advanced_search">
+             {{advanced_form.search_text(class="form-control-md search", placeholder="Title")}}
+             <div class="advanced" >
+                 {{advanced_form.beginning_time(class="form-control-md search advance_search", placeholder="year", list="begin" )}}
+                 <datalist id="begin">
+                    {% for year in year_options %}
+                        <option value="{{year}}">{{year}}</option>
+                    {% endfor %}
+                 </datalist>
+               to
+                {{advanced_form.ending_time(class="form-control-md search advance_search", placeholder="year", list="end")}}
+                 <datalist id="end">
+                    {% for year in year_options %}
+                        <option value="{{year}}">{{year}}</option>
+                    {% endfor %}
+                 </datalist>
+             </div>
+
+             {{advanced_form.submit2(class="btn-md btn-section")}}
+
+             </form>
+         </div>
+        <a class="utilities" href="#advanced" data-toggle="collapse" aria-expanded="false" aria-controls="colortheme" onclick="toggleHidden('basic_search')">
+            <small>Advanced Search</small></a>
+    </div>
+
+<div class="header" >
+    <h1>COMIC WISHLIST</h1>
+</div>
+
+<div class="content" id="about">
+    <a class="utilities" href="{{url_for('find_collection')}}">ACTIVE COLLECTIONS</a> |
+    <a class="utilities" href="{{url_for('utilities')}}">UTILITIES</a>
+</div>
+
+<div id="searchitems">
+    {% for title in titles %}
+
+        <button onclick="toggleHidden('searchitems')">Close Search</button>
+        <p class="searchtitle">Search for "{{title}}":</p>
+    {% endfor %}
+
+<!--    advanced search results-->
+    {% for title in title %}
+        <button onclick="toggleHidden('searchitems')">Close Search</button>
+        <p class="searchtitle">Advanced Search for "{{title}}" ({{start_date}} to {{end_date}}):</p>
+    {% endfor %}
+
+    {% if results %}
+        {% for pub, result in results.items() %}
+            {% for title, issues in result.items()%}
+                <div class="card searchcard">
+                    <a class="issuenumbers" data-toggle="collapse"
+                                       href="#titles{{issues[0]['title_id']}}" role="button" aria-expanded="false"
+                                   aria-controls="collapse" onclick="replaceIcon('icon{issues[0]['title_id']}}', 'fa-caret-down', 'fa-caret-up')">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-3">
+                                    {{title}}
+                                </div>
+                                <div class="col-3">
+                                    {{pub}}
+                                </div>
+                                <div class="col-3">
+                                    {{issues|length}}<i class="fas fa-book"></i>
+                                </div>
+                                <div class="col-3 desc">
+                                    {{issues[0]['cover_desc']}}
+                                </div>
+                            </div>
+                        </div>
+                        <i class="fa fa-caret-down icon" id="icon{{issues[0]['title_id']}}"></i>
+                    </a>
+
+                    {% for issue in issues%}
+                        <ul class="list-group list-group-flush collapse panel-collapse" id="titles{{issues[0]['title_id']}}">
+                            <li class="list-group-item py-1">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <small>{{issue['issue_number']}}</small>
+                                    </div>
+                                    <div class="col-3">
+                                        <small>{{issue['desc']}}</small>
+                                     </div>
+                                    <div class="col-3">
+                                        <a data-toggle="modal" data-target="#comic{{issue['issue_id']}}"
+                                           onclick="lazyLoadImage('image{{issue['issue_id']}}')">
+                                         <small><i class='far fa-file-image issue'></i></small>
+                                        </a>
+                                    </div>
+                                    <div class="col-3">
+                                        <small class="date">{{issue['date']}}</small>
+                                    </div>
+                                </div>
+                                <div class="modal fade" id="comic{{issue['issue_id']}}" tabindex="-1" role="dialog"
+                                     aria-labelledby="ModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close"><span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <img data-src="http://images.comiccollectorlive.com/covers/{{issue['cover_id']}}/{{issue['issue_id']}}.jpg"
+                                                 id="image{{issue['issue_id']}}" alt="comic-image" data-loaded="0">
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+
+
+<!--    basic search results-->
+{% for pub, comic_list in comics.items() %}
+    {% for key in comic_list.keys() %}
+        {% for title in titles %}
+            {% if title in key.lower() %}
+<!--            <span class="clickable close-icon icon" data-effect="fadeOut"><i class="fa fa-times"></i></span>-->
+                <div class="card searchcard">
+                    <a class="issuenumbers" data-toggle="collapse"
+                               href="#title{{comic_list[key][0]['title_id']}}" role="button" aria-expanded="false"
+                           aria-controls="collapse" onclick="replaceIcon('icon{{comic_list[key][0]['title_id']}}', 'fa-caret-down', 'fa-caret-up')">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-3">
+                                    {{ key }}
+                                </div>
+                                <div class="col-3">
+                                    {{pub}}
+                                </div>
+                                <div class="col-2">
+                                    {{comic_list[key]|length}}<i class="fas fa-book"></i>
+                                </div>
+                                <div class="col-3">
+                                    {{comic_list[key][0]['cover_desc']}}
+                                </div>
+                            </div>
+                        </div>
+                        <i class="fa fa-caret-down icon" id="icon{{comic_list[key][0]['title_id']}}"></i>
+
+                    </a>
+
+                    {% for comic in comic_list[key]%}
+                        <ul class="list-group list-group-flush collapse panel-collapse" id="title{{comic_list[key][0]['title_id']}}">
+                            <li class="list-group-item py-1">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <small>{{comic['issue_number']}}</small>
+                                    </div>
+                                    <div class="col-3">
+                                        <small>{{comic['desc']}}</small>
+                                     </div>
+                                    <div class="col-2">
+                                        <a data-toggle="modal" data-target="#comic{{comic['issue_id']}}"
+                                           onclick="lazyLoadImage('image{{comic['issue_id']}}')">
+                                         <small><i class='far fa-file-image issue'></i></small>
+                                        </a>
+                                    </div>
+                                    <div class="col-3">
+                                        <small class="date">{{comic['date']}}</small>
+                                    </div>
+                                </div>
+                                <div class="modal fade" id="comic{{comic['issue_id']}}" tabindex="-1" role="dialog"
+                                     aria-labelledby="ModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close"><span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <img data-src="http://images.comiccollectorlive.com/covers/{{comic['cover_id']}}/{{comic['issue_id']}}.jpg"
+                                                 id="image{{comic['issue_id']}}" alt="comic-image" data-loaded="0">
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+{% endfor %}
+<br>
+</div>
+
+
+<!--all data from wishlist-->
+{% for pub, comic_list in comics.items() %}
+    <div class="card">
+        <a class="card-head" data-toggle="collapse" href="#pub{{loop.index0}}" role="button" aria-expanded="false" aria-controls="collapse" onclick="replaceIcon('caret{{loop.index0}}', 'fa-caret-down', 'fa-caret-up')">
+            {{pub}}<i class="fa fa-caret-down icon" id="caret{{loop.index0}}"></i>
+        </a>
+        <div class="panel-collapse collapse in" id="pub{{loop.index0}}">
+            {% for title, issues in comic_list.items() %}
+                <ul class="list-group">
+                    <li class="list-group-item py-1">
+                        <div class="row">
+                            <div class="col-4">
+                                <a class="title" data-toggle="collapse" href="#title{{issues[0]['title_id']}}"
+                                   role="button" aria-expanded="false" aria-controls="collapse"
+                                   onclick="toggleHidden('{{issues[0]['title_id']}}');
+                                   replaceIcon('chevron{{issues[0]['title_id']}}', 'fa-chevron-down', 'fa-chevron-up')">
+                                    {{title}}<i class='fas fa-chevron-down' id="chevron{{issues[0]['title_id']}}"></i>
+                                </a>
+                            </div>
+
+                            <div class="col-3 subtitle float:right"><small>{{issues|length}} <i class="fas fa-book"></i></small></div>
+                            <div class="col-5 subtitle">
+                                    {{issues[0]['cover_desc']}}
+                            </div>
+                        </div>
+
+                        <div class="col-6" id="{{issues[0]['title_id']}}" style="display: block;">
+                            {% for issue in issues %}
+                                <small class="issuenumbers">{{issue['issue_number']}}{% if not loop.last %},{% endif %}</small>
+                            {% endfor %}
+                        </div>
+
+                        <ul class="list-group list-group-flush collapse panel-collapse" id="title{{issues[0]['title_id']}}">
+                            {% for issue in issues %}
+                                <li class="list-group-item py-1">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <small>{{issue['issue_number']}}</small>
+                                        </div>
+                                        <div class="col-4">
+                                            <small>{{issue['desc']}}</small>
+                                        </div>
+                                        <div class="col-2">
+                                            <a data-toggle="modal" data-target="#issue{{issue['issue_id']}}" onclick="lazyLoadImage('img{{issue['issue_id']}}')">
+                                                <small><i class='far fa-file-image issue'></i></small>
+                                            </a>
+                                        </div>
+                                        <div class="col-3">
+                                            <small class="date">{{issue['date']}}</small>
+                                        </div>
+                                    </div>
+                                    <div class="modal fade" id="issue{{issue['issue_id']}}" tabindex="-1" role="dialog"
+                                         aria-labelledby="ModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close"><span aria-hidden="true">&times;</span>
+                                                </button>
+                                                <img id="img{{issue['issue_id']}}" alt="comic-image" data-loaded="0" data-src="http://images.comiccollectorlive.com/covers/{{issue['cover_id']}}/{{issue['issue_id']}}.jpg"
+                                                src="#">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            {%endfor%}
+        </div>
+    </div>
+{%endfor%}
+
+<a href="#" class="close_all"><img class="image" src="/static/close.jpg.png" alt="close"></a>
+
+{%endblock%}
+
+{% block script %}
+
+<script>
+    $('.close_all').click(function(){
+        $('.panel-collapse').collapse('hide');
+        $('.fa-caret-up').toggleClass("fa-caret-down fa-caret-up");
+    });
+
+
+
+
+</script>
+
+{% endblock %}
+

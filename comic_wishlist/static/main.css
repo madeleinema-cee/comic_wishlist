@@ -1,0 +1,316 @@
+body {
+    background-color: var(--bgcolor);
+    color: var(--secondary);
+    padding: 15px;
+    font-family: var(--main-font);
+}
+
+.header {
+    margin: auto;
+    width: 90%;
+    text-align: center;
+    padding-left: 10px;
+
+    font-family: var(--title);
+    color: var(--primary);
+}
+
+.setting {
+    float: right;
+    color: var(--mute);
+    padding-left: 5px;
+}
+
+.setting:hover {
+    color: var(--third);
+}
+
+
+.content {
+    margin: auto;
+    width: 90%;
+    text-align: center;
+    color: var(--mute);
+    padding-bottom: 10px;
+}
+
+.utilities {
+    color: var(--mute);
+}
+
+.utilities:hover {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.card {
+    border-radius: 5px;
+    border: 1px var(--mute);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin-bottom: 1px;
+}
+
+.card-head {
+    border-radius: 5px;
+    background-color: var(--mute);
+    padding: 5px 10px;
+    border: 1px var(--mute);
+    color: var(--primary);
+    font-family: var(--title);
+    font-size: x-large;
+}
+
+
+.card-head:hover {
+    color: var(--secondary);
+    text-decoration: none;
+}
+
+.icon {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    padding-right: 3px;
+}
+
+.title {
+    color: var(--primary);
+}
+
+.title:hover{
+    color: var(--bgcolor);
+    text-decoration: none;
+}
+
+.subtitle {
+    color: var(--primary);
+}
+
+.color-theme {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+[class*="theme-dot-"]{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    display: inline-block;
+    padding-right: 10px;
+    box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.2)
+}
+
+[class*="theme-dot-"]:hover {
+    opacity: 0.8
+}
+
+
+.theme-dot-steel {
+    background-color: #fca311 ;
+}
+
+.theme-dot-blue {
+    background-color: #CEDFF3;
+}
+
+.theme-dot-pink {
+    background-color: #cb997e;
+}
+
+.theme-dot-teal {
+    background-color: #83c5be;
+}
+
+.theme-dot-yellow {
+    background-color: #f95738;
+}
+
+.search {
+    border-radius: 5px;
+    border: var(--mute) 1px;
+    background-color: var(--mute);
+}
+
+.btn-section {
+    background-color: var(--mute);
+    border-radius: 5px;
+    border: var(--mute) 1px;
+    color: var(--primary);
+    font-family: var(--title);
+
+}
+
+.btn-section:hover {
+    color: var(--mute);
+    background-color: var(--primary);
+}
+
+
+h3 {
+    padding-bottom: 10px;
+}
+
+
+img {
+    size: auto;
+    height: 100%;
+    width: auto;
+}
+
+.close {
+    float: right;
+    position: absolute;
+    top:0;
+    right: 5px;
+}
+
+.year {
+    width: 4ch;
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.date {
+    width: 9ch;
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.issue {
+    color: var(--secondary);
+    font-weight: bolder;
+}
+
+.issue:hover {
+    color: var(--primary);
+}
+
+.issuenumbers {
+    color: var(--secondary);
+    font-weight: bolder;
+}
+
+.issuenumbers:hover{
+    text-decoration: none;
+}
+
+.fa-chevron-down,
+.fa-chevron-up,
+.fa-file-image,
+.fa-book{
+    padding-left: 5px;
+}
+
+
+.close-icon {
+    cursor: pointer;
+}
+
+.searchtitle {
+    color: var(--third);
+    padding-bottom: 5px;
+}
+
+.card-header {
+    color: var(--primary);
+    font-size: smaller;
+}
+
+.card-header:hover {
+    color: var(--secondary);
+    text-decoration: none;
+}
+
+.image {
+    height: 30px;
+    width: 30px;
+    position: fixed;
+    right: 5px;
+    bottom: 5px;
+}
+
+button {
+    display: inline-block;
+    float: right;
+    color: var(--third);
+    background: none;
+    border: none;
+}
+
+button:hover {
+    color: var(--primary);
+}
+
+footer{
+    position: relative;
+    bottom: 5px;
+    margin: auto;
+    width: 90%;
+    color: var(--mute);
+    font-size: smaller;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.download {
+    padding: 10px;
+    margin: 10px;
+    display: block;
+    color: var(--bgcolor);
+}
+
+.download:hover{
+    text-decoration: none;
+    color: var(--primary);
+}
+
+
+
+.modal-title{
+    margin: auto;
+    text-align: center;
+    width: 90%;
+    font-family: var(--title);
+    font-size: 30px;
+}
+
+.copy-link {
+    color: var(--primary);
+}
+
+.copy-link:hover {
+    text-decoration: none;
+    color: var(--mute);
+}
+
+.col-3 {
+    padding: 0;
+}
+
+.list-group {
+    padding: 0;
+}
+
+.advanced {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.advance_search {
+    width: 80px;
+}
+
+
+.grade {
+    color: var(--mute);
+}
+
+.time {
+    display: inline-block;
+}
+
+.desc {
+    padding-right: 10px;
+}
