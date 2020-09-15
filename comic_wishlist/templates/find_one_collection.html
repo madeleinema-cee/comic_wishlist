@@ -26,44 +26,6 @@
     }
 
 </script>
-<a class="setting" data-toggle="collapse" href="#search" aria-expanded="false" aria-controls="colortheme"><i class="fa fa-search" style="font-size:15px"></i></a>
-    <div class="collapse" id="search">
-        <form action="" method="post" id="basic_search">
-        {{search_form.search_text(class="form-control-md search", placeholder="Title")}}
-        {{search_form.submit1(class="btn-md btn-section")}}
-        </form>
-
-         <div class="collapse advanced" id="advanced">
-             <form action="" method="post" id="advanced_search">
-             {{advanced_form.search_text(class="form-control-md search", placeholder="Title")}}
-             <div class="advanced">
-                {{advanced_form.beginning_time(class="form-control-md search advance_search", placeholder="year", list="begin")}}
-                 <datalist id="begin">
-                    {% for year in year_options %}
-                        <option value="{{year}}">{{year}}</option>
-                    {% endfor %}
-                 </datalist>
-                 to
-                {{advanced_form.ending_time(class="form-control-md search advance_search", placeholder="year", list="end")}}
-                 <datalist id="end">
-                    {% for year in year_options %}
-                        <option value="{{year}}">{{year}}</option>
-                    {% endfor %}
-                 </datalist>
-             </div>
-                <div class="grade">
-                    <small>
-                        {{advanced_form.graded}}
-                        {{advanced_form.graded.label}}
-                    </small>
-                </div>
-             {{advanced_form.submit3(class="btn-md btn-section")}}
-             </form>
-         </div>
-        <a class="utilities" href="#advanced" data-toggle="collapse" aria-expanded="false" aria-controls="colortheme" onclick="toggleHidden('basic_search')">
-            <small>Advanced Search</small></a>
-    </div>
-
 
 <div class="header">
     <h1>ACTIVE COLLECTIONS</h1>
@@ -99,11 +61,7 @@
                             </div>
                         </div>
 
-                        <div class="col-6" id="{{issues[0]['title_id']}}" style="display: block;">
-                            {% for issue in issues %}
-                                <small class="issuenumbers">{{issue['issue_number']}}{% if not loop.last %},{% endif %}</small>
-                            {% endfor %}
-                        </div>
+                       
 
                         <ul class="list-group list-group-flush collapse panel-collapse" id="title{{issues[0]['title_id']}}">
                             {% for issue in issues %}

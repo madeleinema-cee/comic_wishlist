@@ -8,20 +8,20 @@ class ExcelCovert:
             if wishlist == 'True':
                 w = ComicData(wishlist=True)
                 self.data = w.parse_data(wishlist=True)
-                self.output_file = 'wishlist(multi_sheet).xlsx'
+                self.output_file = 'comic_wishlist/wishlist(multi_sheet).xlsx'
             else:
                 c = ComicData(wishlist=False)
                 self.data = c.parse_data(wishlist=False)
-                self.output_file = 'collection(multi_sheet).xlsx'
+                self.output_file = 'comic_wishlist/collection(multi_sheet).xlsx'
         else:
             if wishlist == 'True':
                 w = ComicData(wishlist=True)
                 self.data = w.parse_data(wishlist=True)
-                self.output_file = 'wishlist(one_sheet).xlsx'
+                self.output_file = 'comic_wishlist/wishlist(one_sheet).xlsx'
             else:
                 c = ComicData(wishlist=False)
                 self.data = c.parse_data(wishlist=False)
-                self.output_file = 'collection(one_sheet).xlsx'
+                self.output_file = 'comic_wishlist/collection(one_sheet).xlsx'
 
         self.workbook = xlsxwriter.Workbook(self.output_file)
         self.worksheet = None
