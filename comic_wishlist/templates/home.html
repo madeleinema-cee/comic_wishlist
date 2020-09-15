@@ -62,11 +62,11 @@
             <small>Advanced Search</small></a>
     </div>
 
-<div class="header">
+<div class="header" >
     <h1>COMIC WISHLIST</h1>
 </div>
 
-<div class="content">
+<div class="content" id="about">
     <a class="utilities" href="{{url_for('find_collection')}}">ACTIVE COLLECTIONS</a> |
     <a class="utilities" href="{{url_for('utilities')}}">UTILITIES</a>
 </div>
@@ -309,6 +309,10 @@
         $('.panel-collapse').collapse('hide');
         $('.fa-caret-up').toggleClass("fa-caret-down fa-caret-up");
     });
+
+
+
+
 </script>
 
 {% endblock %}

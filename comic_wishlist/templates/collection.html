@@ -271,7 +271,7 @@
 
 {% for publisher, comic_list in comics.items() %}
     <div class="card">
-        <a class="card-head" href="{{url_for('one_collection', publisher=publisher)}}" target="_blank">
+        <a class="card-head" href="{{url_for('find_one_collection', publisher=publisher)}}" target="_blank">
             {{publisher}}
         </a>
     </div>

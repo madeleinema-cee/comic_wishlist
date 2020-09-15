@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, request
+from flask import render_template, redirect, url_for, request, send_file
 from comic_wishlist import app, db
 from comic_wishlist.models import Colors
 from comic_wishlist.form import SearchForm, AdvancedForm1, AdvancedForm2
@@ -107,8 +107,8 @@ def find_collection():
                            year_options=generate_date_options(retrieve_oldest_comic_date(comics)))
 
 
-@app.route('/one_collection/<string:publisher>', methods=['GET', 'POST'])
-def one_collection(publisher):
+@app.route('/collection/<string:publisher>', methods=['GET', 'POST'])
+def find_one_collection(publisher):
     theme = Colors.query.filter_by(selected=True).first()
     query = f'''
                select p.PublisherName, c.title, c.covertitleid, c.description, i.issuenumber, i.issueid,
@@ -121,8 +121,6 @@ def one_collection(publisher):
 
     comics = ComicData(wishlist=False, query=query)
     comics = comics.parse_data(wishlist=False)
-
-
     advanced_form = AdvancedForm2()
     search_form = SearchForm()
     if request.method == 'POST':
@@ -133,7 +131,7 @@ def one_collection(publisher):
             return redirect(url_for('advanced_search_collection', title=advanced_form.search_text.data,
                                     start_date=advanced_form.beginning_time.data,
                                     end_date=advanced_form.ending_time.data, graded=advanced_form.graded.data))
-    return render_template('one_collection.html', publisher=publisher, theme=theme, search_form=search_form,
+    return render_template('find_one_collection.html', publisher=publisher, theme=theme, search_form=search_form,
                            advanced_form=advanced_form, comics=comics,
                            year_options=generate_date_options(retrieve_oldest_comic_date(comics)))
 
@@ -208,9 +206,6 @@ def select_color(color_id):
     return redirect(url_for('index'))
 
 
-
-
-
 @app.route('/utilities')
 def utilities():
     theme = Colors.query.filter_by(selected=True).first()
@@ -223,9 +218,20 @@ def download_excel(wishlist, one_sheet):
     e = ExcelCovert(wishlist=wishlist, one_sheet=one_sheet)
     if one_sheet == 'True':
         e.download_one_sheet()
+        if wishlist == 'True':
+            path = "wishlist(one_sheet).xlsx"
+            return send_file(path, as_attachment=True)
+        else:
+            path = "collection(one_sheet).xlsx"
+            return send_file(path, as_attachment=True)
     else:
         e.download_multi_sheet()
-    return redirect(url_for('index'))
+        if wishlist == 'True':
+            path = "wishlist(multi_sheet).xlsx"
+            return send_file(path, as_attachment=True)
+        else:
+            path = "collection(multi_sheet).xlsx"
+            return send_file(path, as_attachment=True)
 
 
 @app.context_processor
