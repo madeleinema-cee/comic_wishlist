@@ -27,9 +27,11 @@
 
 </script>
 
+<a class="back" href="{{url_for('find_collection')}}"><i class='fas fa-arrow-left'></i></a>
 <div class="header">
     <h1>ACTIVE COLLECTIONS</h1>
 </div>
+
 
 <div class="content">
     <a class="utilities" href="{{url_for('index')}}">COMIC WISHLIST</a> |
@@ -49,8 +51,7 @@
                             <div class="col-4">
                                 <a class="title" data-toggle="collapse" href="#title{{issues[0]['title_id']}}"
                                    role="button" aria-expanded="false" aria-controls="collapse"
-                                   onclick="toggleHidden('{{issues[0]['title_id']}}');
-                                   replaceIcon('chevron{{issues[0]['title_id']}}', 'fa-chevron-down', 'fa-chevron-up')">
+                                   onclick="replaceIcon('chevron{{issues[0]['title_id']}}', 'fa-chevron-down', 'fa-chevron-up')">
                                     {{title}}<i class='fas fa-chevron-down' id="chevron{{issues[0]['title_id']}}"></i>
                                 </a>
                             </div>

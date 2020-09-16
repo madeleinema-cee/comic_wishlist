@@ -110,6 +110,7 @@ def find_collection():
 @app.route('/collection/<string:publisher>', methods=['GET', 'POST'])
 def find_one_collection(publisher):
     theme = Colors.query.filter_by(selected=True).first()
+    publisher = publisher.replace('%20', ' ')
     query = f'''
                select p.PublisherName, c.title, c.covertitleid, c.description, i.issuenumber, i.issueid,
                 i.coverdate, i.covervariantdescription, u.cgccolor, u.cgcscore, u.cgccomments from Issue i

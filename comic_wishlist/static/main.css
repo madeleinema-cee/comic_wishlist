@@ -1,8 +1,20 @@
 body {
     background-color: var(--bgcolor);
     color: var(--secondary);
-    padding: 15px;
+    padding: 15px 0;
     font-family: var(--main-font);
+
+}
+
+.container {
+    min-height: 90vh;
+}
+
+@media screen and (max-width: 700px){
+    div.container {
+        padding: 5px;
+        margin: 0;
+    }
 }
 
 .header {
@@ -19,6 +31,10 @@ body {
     float: right;
     color: var(--mute);
     padding-left: 5px;
+}
+
+.back {
+    color: var(--mute);
 }
 
 .setting:hover {
@@ -245,11 +261,10 @@ button:hover {
 
 footer{
     position: relative;
-    bottom: 5px;
     margin: auto;
     width: 90%;
     color: var(--mute);
-    font-size: smaller;
+    font-size: 10px;
     text-align: center;
     padding-top: 20px;
 }
