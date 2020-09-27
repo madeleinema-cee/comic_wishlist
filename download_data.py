@@ -4,24 +4,15 @@ from find_data import ComicData
 
 class ExcelCovert:
     def __init__(self, wishlist='False', one_sheet='False'):
-        if one_sheet == 'False':
-            if wishlist == 'True':
-                w = ComicData(wishlist=True)
-                self.data = w.parse_data(wishlist=True)
-                self.output_file = 'comic_wishlist/wishlist(multi_sheet).xlsx'
-            else:
-                c = ComicData(wishlist=False)
-                self.data = c.parse_data(wishlist=False)
-                self.output_file = 'comic_wishlist/collection(multi_sheet).xlsx'
-        else:
-            if wishlist == 'True':
-                w = ComicData(wishlist=True)
-                self.data = w.parse_data(wishlist=True)
-                self.output_file = 'comic_wishlist/wishlist(one_sheet).xlsx'
-            else:
-                c = ComicData(wishlist=False)
-                self.data = c.parse_data(wishlist=False)
-                self.output_file = 'comic_wishlist/collection(one_sheet).xlsx'
+        self.wishlist = True if wishlist == 'True' else False
+        self.one_sheet = True if one_sheet == 'True' else False
+
+        c = ComicData(wishlist=self.wishlist)
+        self.data = c.parse_data()
+
+        self.output_file = '/tmp/{}({}).xlsx'.format(
+            'wishlist' if self.wishlist else 'collection',
+            'single' if self.one_sheet else 'multi')
 
         self.workbook = xlsxwriter.Workbook(self.output_file)
         self.worksheet = None
@@ -29,7 +20,7 @@ class ExcelCovert:
 
         self.row = 0
 
-    def download_multi_sheet(self, wishlist='False'):
+    def download_multi_sheet(self):
         for pub, comic_list in self.data.items():
             self.row = 1
             self.worksheet = self.workbook.add_worksheet(
@@ -55,7 +46,6 @@ class ExcelCovert:
                     self.worksheet.write(self.row, 5, issue['desc'])
                     self.row += 1
         self.workbook.close()
-
 
     @staticmethod
     def format_publisher_for_sheet_name(publisher_name):

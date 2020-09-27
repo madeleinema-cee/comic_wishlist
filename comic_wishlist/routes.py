@@ -1,12 +1,16 @@
-from flask import render_template, redirect, url_for, request, send_file
-from comic_wishlist import app, db
-from comic_wishlist.models import Colors
-from comic_wishlist.form import SearchForm, AdvancedForm1, AdvancedForm2
+from flask import render_template, redirect, url_for, request, send_file, current_app
+from flask_login import login_user, current_user, logout_user, login_required
+from comic_wishlist import app, db, login_manager
+from comic_wishlist.models import Colors, User
+from comic_wishlist.form import SearchForm, AdvancedForm1, AdvancedForm2, UploadForm, LoginForm
 from find_data import ComicData
+from parse_data import SQLFileParser
 from download_data import ExcelCovert
 from datetime import datetime as dt
 from utils import retrieve_oldest_comic_date, generate_date_options
-
+import os
+from config import hashed_password
+import bcrypt
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -210,7 +214,6 @@ def select_color(color_id):
 @app.route('/utilities')
 def utilities():
     theme = Colors.query.filter_by(selected=True).first()
-
     return render_template('utilities.html', theme=theme)
 
 
@@ -219,23 +222,55 @@ def download_excel(wishlist, one_sheet):
     e = ExcelCovert(wishlist=wishlist, one_sheet=one_sheet)
     if one_sheet == 'True':
         e.download_one_sheet()
-        if wishlist == 'True':
-            path = "wishlist(one_sheet).xlsx"
-            return send_file(path, as_attachment=True)
-        else:
-            path = "collection(one_sheet).xlsx"
-            return send_file(path, as_attachment=True)
-    else:
-        e.download_multi_sheet()
-        if wishlist == 'True':
-            path = "wishlist(multi_sheet).xlsx"
-            return send_file(path, as_attachment=True)
-        else:
-            path = "collection(multi_sheet).xlsx"
-            return send_file(path, as_attachment=True)
+        return send_file(e.output_file, as_attachment=True)
 
 
 @app.context_processor
 def inject_now():
     return {'now': int(dt.utcnow().strftime('%Y'))}
+
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
+
+@login_manager.unauthorized_handler
+def unauthorized_callback():
+    return redirect('login')
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if current_user.is_authenticated:
+        return redirect(url_for('admin'))
+
+    if request.method == 'POST':
+        if form.submit.data and form.validate_on_submit:
+            user = User.query.filter_by(name='admin').first()
+            if user and bcrypt.checkpw(form.password.data.encode(), user.password):
+                login_user(user)
+                return redirect('admin')
+            else:
+                return redirect('login')
+    return render_template('login.html', form=form)
+
+
+@app.route('/admin', methods=['GET', 'POST'])
+@login_required
+def admin():
+    form = UploadForm()
+    if request.method == 'POST':
+        if form.submit.data and form.validate_on_submit:
+            file = request.files['file']
+            path = '/tmp/data.sql'
+            file.save(path)
+            s = SQLFileParser(path)
+            s.main()
+            os.remove(path)
+
+            return redirect(url_for('index'))
+    return render_template('admin.html', form=form)
 

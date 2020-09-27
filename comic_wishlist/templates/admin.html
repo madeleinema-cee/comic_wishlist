@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Console</title>
+
+    <style>
+        body{
+            margin:40px auto;
+            max-width:650px;
+            line-height:1.6;
+            font-size:18px;
+            color:#444;
+            padding:0 10px
+        }
+        h1,h2,h3{
+            line-height:1.2
+        }
+    </style>
+
+</head>
+<body>
+
+    <a href="{{url_for('logout')}}">Logout</a>
+
+    <center><h1>Comic Collection Admin Page</h1></center>
+    <h2>How to:</h2>
+    <p>In order for us to parse a SQLCE database and upload it into something
+    ingestible by python-flask, we first need to convert it into a .SQL file. This
+    information is difficult to find online so we are providing it here.
+    <br><b>The following process must be completed on a windows OS</b>
+    </p>
+
+    <ol type="1">
+        <li>Export/Extract .SDF database file from comic collector live</li>
+        <li>Download ExportSQLCE <a href="" download>here</a></li>
+        <li>Unzip ExportSQLCE and copy .SDF database file from step one into its directory</li>
+        <li>Drag and Drop .SDF file onto convert convertSDF.bat file</li>
+        <li>Upload generated data.sql file below</li>
+        <li><span style="color:red"><b>Please do not leave the page until fully uploaded!!!</b></span></li>
+    </ol>
+    <form action="" method="post" id="upload" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        {{ form.file.label() }}
+        {{ form.file() }}<br>
+        {{ form.submit() }}
+    </form>
+
+
+
+
+</body>
+</html>

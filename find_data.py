@@ -34,7 +34,7 @@ class ComicData:
                 query = query
                 self.results = self.db.fetchall(query)
 
-    def parse_data(self, wishlist= False):
+    def parse_data(self, wishlist=False):
         if wishlist:
             data = {}
             for row in self.results:
@@ -123,8 +123,3 @@ class ComicData:
 
             return data
 
-
-
-if __name__ == '__main__':
-    d = ComicData()
-    d.parse_data()
