@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, flash, request, send_file, current_app
+from flask import render_template, redirect, url_for, flash, request, send_file, current_app, send_from_directory
 from flask_login import login_user, current_user, logout_user, login_required
 from comic_wishlist import app, db, login_manager
 from comic_wishlist.models import Colors, User
@@ -10,6 +10,7 @@ from datetime import datetime as dt
 from utils import retrieve_oldest_comic_date, generate_date_options
 import os
 import bcrypt
+import config
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -279,4 +280,11 @@ def admin():
                 flash('Please submit data.sql!')
                 return redirect(url_for('admin', form=form))
     return render_template('admin.html', form=form)
+
+
+@app.route('/download_file/<file_path>')
+@login_required
+def download_file(file_path):
+    print(file_path)
+    return send_file(file_path, as_attachment=True)
 
