@@ -1,11 +1,13 @@
 from db import Db
 import os
+import argparse
 
 
 class SQLFileParser:
     def __init__(self, sql_path):
         db_path = 'comic_wishlist.db'
-        os.remove(db_path)
+        if os.path.isfile(db_path):
+            os.remove(db_path)
         self.db = Db(db_path)
         self.database = 'comics'
         self.sql_path = sql_path
@@ -32,3 +34,10 @@ class SQLFileParser:
     @staticmethod
     def replace(q):
         return q.replace('{ts ', '').replace('}', '').replace(',N\'', ',\'').replace('*', '').replace('\ufeff', '').replace(';', '')
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('file_path', type=str)
+    args = parser.parse_args()
+    s = SQLFileParser(args.file_path)
