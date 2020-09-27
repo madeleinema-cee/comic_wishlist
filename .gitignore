@@ -129,3 +129,5 @@ dmypy.json
 .pyre/
 
 .idea/*
+
+comic_wishlist/ExportSqlCE40.zip
