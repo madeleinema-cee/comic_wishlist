@@ -20,7 +20,17 @@
 
 </head>
 <body>
-
+    <div role="alert" class="alert">
+        {% with messages = get_flashed_messages(with_categories=true)%}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div style="color:red">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
     <a href="{{url_for('logout')}}">Logout</a>
 
     <center><h1>Comic Collection Admin Page</h1></center>
@@ -32,7 +42,7 @@
     </p>
 
     <ol type="1">
-        <li>Export/Extract .SDF database file from comic collector live</li>
+        <li>Export/Extract .SDF database file from comiccollectorlive.com</li>
         <li>Download ExportSQLCE <a href="" download>here</a></li>
         <li>Unzip ExportSQLCE and copy .SDF database file from step one into its directory</li>
         <li>Drag and Drop .SDF file onto convert convertSDF.bat file</li>
@@ -41,10 +51,18 @@
     </ol>
     <form action="" method="post" id="upload" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
-        {{ form.file.label() }}
-        {{ form.file() }}<br>
+        {{ form.file.label() }}<br>
+        {{ form.file() }}
+        {% if form.file.errors %}
+            {% for error in form.file.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        {% endif %}
+        <br>
+
         {{ form.submit() }}
     </form>
+
 
 
 

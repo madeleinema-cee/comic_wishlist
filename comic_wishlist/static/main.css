@@ -3,6 +3,7 @@ body {
     color: var(--secondary);
     padding: 15px 0;
     font-family: var(--main-font);
+    z-index: 0;
 
 }
 
@@ -99,7 +100,18 @@ body {
 }
 
 .subtitle {
-    color: var(--primary);
+    color: var(--bgcolor);
+}
+
+.cover_desc{
+    margin-left: 10px;
+    text-align: left;
+
+}
+
+.issues_count {
+    text-align: right;
+    float: right;
 }
 
 .color-theme {
@@ -230,15 +242,12 @@ img {
 }
 
 .card-header {
-    color: var(--primary);
     font-size: smaller;
 }
 
-.card-header:hover {
-    color: var(--secondary);
-    text-decoration: none;
+.key{
+    color: var(--primary);
 }
-
 .image {
     height: 30px;
     width: 30px;
@@ -328,4 +337,12 @@ footer{
 
 .desc {
     padding-right: 10px;
+}
+
+.alert {
+    z-index: 99;
+    width: 60%;
+    position: absolute;
+    top:0;
+    right:5px
 }

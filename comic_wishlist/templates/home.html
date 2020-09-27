@@ -67,8 +67,7 @@
 </div>
 
 <div class="content" id="about">
-    <a class="utilities" href="{{url_for('find_collection')}}">ACTIVE COLLECTIONS</a> |
-    <a class="utilities" href="{{url_for('utilities')}}">UTILITIES</a>
+    <a class="utilities" href="{{url_for('find_collection')}}">ACTIVE COLLECTIONS</a>
 </div>
 
 <div id="searchitems">
@@ -92,18 +91,13 @@
                                        href="#titles{{issues[0]['title_id']}}" role="button" aria-expanded="false"
                                    aria-controls="collapse" onclick="replaceIcon('icon{issues[0]['title_id']}}', 'fa-caret-down', 'fa-caret-up')">
                         <div class="card-header">
+                            <div class="key">{{title}}</div>
                             <div class="row">
-                                <div class="col-3">
-                                    {{title}}
-                                </div>
-                                <div class="col-3">
-                                    {{pub}}
-                                </div>
-                                <div class="col-3">
-                                    {{issues|length}}<i class="fas fa-book"></i>
-                                </div>
-                                <div class="col-3 desc">
+                                <div class="col-7 cover_desc">
                                     {{issues[0]['cover_desc']}}
+                                </div>
+                                <div class="col-4 issues_count">
+                                    {{issues|length}}<i class="fas fa-book"></i>
                                 </div>
                             </div>
                         </div>
@@ -163,18 +157,13 @@
                            aria-controls="collapse"
                        onclick="replaceIcon('icon{{comic_list[key][0]['title_id']}}', 'fa-caret-down', 'fa-caret-up')">
                         <div class="card-header">
+                            <div class="key">{{ key }}</div>
                             <div class="row">
-                                <div class="col-3">
-                                    {{ key }}
-                                </div>
-                                <div class="col-3">
-                                    {{pub}}
-                                </div>
-                                <div class="col-2">
-                                    {{comic_list[key]|length}}<i class="fas fa-book"></i>
-                                </div>
-                                <div class="col-3">
+                                <div class="col-7 cover_desc">
                                     {{comic_list[key][0]['cover_desc']}}
+                                </div>
+                                <div class="col-4 issues_count">
+                                    {{comic_list[key]|length}}<i class="fas fa-book"></i>
                                 </div>
                             </div>
                         </div>
@@ -186,13 +175,13 @@
                         <ul class="list-group list-group-flush collapse panel-collapse" id="title{{comic_list[key][0]['title_id']}}">
                             <li class="list-group-item py-1">
                                 <div class="row">
-                                    <div class="col-3">
+                                    <div class="col-3 text-align:center">
                                         <small>{{comic['issue_number']}}</small>
                                     </div>
                                     <div class="col-3">
                                         <small>{{comic['desc']}}</small>
                                      </div>
-                                    <div class="col-2">
+                                    <div class="col-3">
                                         <a data-toggle="modal" data-target="#comic{{comic['issue_id']}}"
                                            onclick="lazyLoadImage('image{{comic['issue_id']}}')">
                                          <small><i class='far fa-file-image issue'></i></small>
@@ -236,23 +225,20 @@
             {% for title, issues in comic_list.items() %}
                 <ul class="list-group">
                     <li class="list-group-item py-1">
+                        <a class="title" data-toggle="collapse" href="#title{{issues[0]['title_id']}}"
+                           role="button" aria-expanded="false" aria-controls="collapse"
+                           onclick="toggleHidden('{{issues[0]['title_id']}}');
+                           replaceIcon('chevron{{issues[0]['title_id']}}', 'fa-chevron-down', 'fa-chevron-up')">
+                            {{title}}<i class='fas fa-chevron-down' id="chevron{{issues[0]['title_id']}}"></i>
+                        </a>
                         <div class="row">
-                            <div class="col-4">
-                                <a class="title" data-toggle="collapse" href="#title{{issues[0]['title_id']}}"
-                                   role="button" aria-expanded="false" aria-controls="collapse"
-                                   onclick="toggleHidden('{{issues[0]['title_id']}}');
-                                   replaceIcon('chevron{{issues[0]['title_id']}}', 'fa-chevron-down', 'fa-chevron-up')">
-                                    {{title}}<i class='fas fa-chevron-down' id="chevron{{issues[0]['title_id']}}"></i>
-                                </a>
-                            </div>
-
-                            <div class="col-3 subtitle float:right"><small>{{issues|length}} <i class="fas fa-book"></i></small></div>
-                            <div class="col-5 subtitle">
+                            <small class="col-7 subtitle cover_desc">
                                     {{issues[0]['cover_desc']}}
-                            </div>
+                            </small>
+                            <div class="col-4 subtitle issues_count"><small>{{issues|length}} <i class="fas fa-book"></i></small></div>`
                         </div>
 
-                        <div class="col-6" id="{{issues[0]['title_id']}}" style="display: block;">
+                        <div class="" id="{{issues[0]['title_id']}}" style="display: block;">
                             {% for issue in issues %}
                                 <small class="issuenumbers">{{issue['issue_number']}}{% if not loop.last %},{% endif %}</small>
                             {% endfor %}

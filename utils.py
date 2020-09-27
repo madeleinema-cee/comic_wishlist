@@ -20,6 +20,7 @@ def add_color():
         db.session.add(color)
         db.session.commit()
 
+
 def retrieve_oldest_comic_date(comics):
     dates = []
     for name, comic in comics.items():

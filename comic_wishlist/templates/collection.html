@@ -69,8 +69,7 @@
 </div>
 
 <div class="content">
-    <a class="utilities" href="{{url_for('index')}}">COMIC WISHLIST</a> |
-    <a class="utilities" href="{{url_for('utilities')}}">UTILITIES</a>
+    <a class="utilities" href="{{url_for('index')}}">COMIC WISHLIST</a>
 </div>
 
 
@@ -101,18 +100,13 @@
                                            href="#titles{{issues[0]['issue_id']}}" role="button" aria-expanded="false"
                                        aria-controls="collapse" onclick="replaceIcon('icon{issues[0]['title_id']}}', 'fa-caret-down', 'fa-caret-up')">
                             <div class="card-header">
+                                <div class="key"> {{title}}</div>
                                 <div class="row">
-                                    <div class="col-3">
-                                        {{title}}
-                                    </div>
-                                    <div class="col-3">
-                                        {{pub}}
-                                    </div>
-                                    <div class="col-3">
-                                        {{issues|length}}<i class="fas fa-book"></i>
-                                    </div>
-                                    <div class="col-3 desc">
+                                    <div class="col-7 cover_desc">
                                         {{issues[0]['cover_desc']}}
+                                    </div>
+                                    <div class="col-4 desc issues_count">
+                                        {{issues|length}}<i class="fas fa-book"></i>
                                     </div>
                                 </div>
                             </div>
@@ -207,18 +201,14 @@
                                href="#title{{comic_list[key][0]['title_id']}}" role="button" aria-expanded="false"
                            aria-controls="collapse" onclick="replaceIcon('icon{{comic_list[key][0]['title_id']}}', 'fa-caret-down', 'fa-caret-up')">
                         <div class="card-header">
+                            <div class="key">{{ key }}</div>
                             <div class="row">
-                                <div class="col-3">
-                                    {{ key }}
+                                <div class="col-7 cover_desc">
+                                    {{comic_list[key][0]['cover_desc']}}
                                 </div>
-                                <div class="col-3">
-                                    {{pub}}
-                                </div>
-                                <div class="col-3">
+                                <div class="col-4 issues_count">
                                     {{comic_list[key]|length}}<i class="fas fa-book"></i>
-                                </div>
-                                <div class="col-3">
-                                        {{comic_list[key][0]['cover_desc']}}
+
                                 </div>
                             </div>
                         </div>

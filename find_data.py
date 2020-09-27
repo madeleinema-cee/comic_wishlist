@@ -14,7 +14,6 @@ class ComicData:
                        join Publisher p on p.publisherid = c.publisherid
                        Order by PublisherName, title, issuenumber
                        '''
-
                 self.results = self.db.fetchall(query)
             else:
                 query = query

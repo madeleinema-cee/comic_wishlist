@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, BooleanField, DateField, PasswordField
 from wtforms.validators import data_required, length
-from flask_wtf.file import FileField
+from flask_wtf.file import FileField, FileAllowed
 from datetime import date
 
 
@@ -26,7 +26,7 @@ class AdvancedForm2(FlaskForm):
 
 
 class UploadForm(FlaskForm):
-    file = FileField('')
+    file = FileField('data.sql', validators=[data_required(), FileAllowed(['sql'])])
     submit = SubmitField('Upload')
 
 

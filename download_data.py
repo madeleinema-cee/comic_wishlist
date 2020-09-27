@@ -8,7 +8,9 @@ class ExcelCovert:
         self.one_sheet = True if one_sheet == 'True' else False
 
         c = ComicData(wishlist=self.wishlist)
-        self.data = c.parse_data()
+        print(self.wishlist)
+        print(one_sheet)
+        self.data = c.parse_data(wishlist=self.wishlist)
 
         self.output_file = '/tmp/{}({}).xlsx'.format(
             'wishlist' if self.wishlist else 'collection',

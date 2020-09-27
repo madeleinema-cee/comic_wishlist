@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, request, send_file, current_app
+from flask import render_template, redirect, url_for, flash, request, send_file, current_app
 from flask_login import login_user, current_user, logout_user, login_required
 from comic_wishlist import app, db, login_manager
 from comic_wishlist.models import Colors, User
@@ -9,7 +9,6 @@ from download_data import ExcelCovert
 from datetime import datetime as dt
 from utils import retrieve_oldest_comic_date, generate_date_options
 import os
-from config import hashed_password
 import bcrypt
 
 
@@ -178,7 +177,7 @@ def advanced_search_collection(title, start_date, end_date, graded):
                            year_options=generate_date_options(retrieve_oldest_comic_date(comics)))
 
 
-@app.route('/collection/<string:title>', methods=['GET', 'POST'])
+@app.route('/search_collection/<string:title>', methods=['GET', 'POST'])
 def search_collection(title):
     titles = []
     theme = Colors.query.filter_by(selected=True).first()
@@ -223,6 +222,9 @@ def download_excel(wishlist, one_sheet):
     if one_sheet == 'True':
         e.download_one_sheet()
         return send_file(e.output_file, as_attachment=True)
+    else:
+        e.download_multi_sheet()
+        return send_file(e.output_file, as_attachment=True)
 
 
 @app.context_processor
@@ -265,12 +267,16 @@ def admin():
     if request.method == 'POST':
         if form.submit.data and form.validate_on_submit:
             file = request.files['file']
-            path = '/tmp/data.sql'
-            file.save(path)
-            s = SQLFileParser(path)
-            s.main()
-            os.remove(path)
-
-            return redirect(url_for('index'))
+            if file.filename == 'data.sql':
+                path = '/tmp/data.sql'
+                file.save(path)
+                s = SQLFileParser(path)
+                s.main()
+                os.remove(path)
+                flash('SQL file uploaded successfully!', 'success')
+                return redirect(url_for('index'))
+            else:
+                flash('Please submit data.sql!')
+                return redirect(url_for('admin', form=form))
     return render_template('admin.html', form=form)
 

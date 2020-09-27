@@ -34,11 +34,8 @@
 
 
 <div class="content">
-    <a class="utilities" href="{{url_for('index')}}">COMIC WISHLIST</a> |
-    <a class="utilities" href="{{url_for('utilities')}}">UTILITIES</a>
+    <a class="utilities" href="{{url_for('index')}}">COMIC WISHLIST</a>
 </div>
-
-
 
 {% for pub, comic_list in comics.items() %}
     <div class="card">
@@ -47,19 +44,15 @@
             {% for title, issues in comic_list.items() %}
                 <ul class="list-group">
                     <li class="list-group-item py-1">
+                        <a class="title" data-toggle="collapse" href="#title{{issues[0]['title_id']}}"
+                           role="button" aria-expanded="false" aria-controls="collapse"
+                           onclick="replaceIcon('chevron{{issues[0]['title_id']}}', 'fa-chevron-down', 'fa-chevron-up')">
+                            {{title}}<i class='fas fa-chevron-down' id="chevron{{issues[0]['title_id']}}"></i>
+                        </a>
                         <div class="row">
-                            <div class="col-4">
-                                <a class="title" data-toggle="collapse" href="#title{{issues[0]['title_id']}}"
-                                   role="button" aria-expanded="false" aria-controls="collapse"
-                                   onclick="replaceIcon('chevron{{issues[0]['title_id']}}', 'fa-chevron-down', 'fa-chevron-up')">
-                                    {{title}}<i class='fas fa-chevron-down' id="chevron{{issues[0]['title_id']}}"></i>
-                                </a>
-                            </div>
-
-                            <div class="col-3 subtitle float:right"><small>{{issues|length}} <i class="fas fa-book"></i></small></div>
-                            <div class="col-5 subtitle">
-                                    {{issues[0]['cover_desc']}}
-                            </div>
+                            <div class="col-7 subtitle cover_desc">{{issues[0]['cover_desc']}}</div>
+                            <div class="col-4 subtitle issues_count">
+                                <small>{{issues|length}} <i class="fas fa-book"></i></small></div>
                         </div>
 
                        
