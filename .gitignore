@@ -131,3 +131,7 @@ dmypy.json
 .idea/*
 
 comic_wishlist/ExportSqlCE40.zip
+
+comic_wishlist.db
+
+config.py
