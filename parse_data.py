@@ -17,9 +17,14 @@ class SQLFileParser:
 
     def main(self):
         with open(self.sql_path, encoding='utf-16') as f, open(self.intermediary_file, 'w+') as i:
-            for line in f:
+            for idx, line in enumerate(f):
                 if line[0:2] not in self.unwanted_lines:
-                    i.write(line.strip('\r\n'))
+                    try:
+                        i.write(line.strip('\r\n'))
+                    except Exception as e:
+                        print(e)
+                        print(line)
+                        print(idx)
 
         with open(self.intermediary_file, mode='r+', encoding='utf-8-sig') as i:
             self.queries = i.read().split(';GO')
