@@ -1,9 +1,10 @@
 from db import Db
+import config
 
 
 class ComicData:
     def __init__(self, wishlist=False, query=None):
-        self.db = Db('comic_wishlist.db')
+        self.db = Db(config.db_path)
         if wishlist:
             if query is None:
                 query = '''
