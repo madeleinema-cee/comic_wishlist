@@ -1,7 +1,7 @@
 from db import Db
 import os
 import argparse
-
+import pdb
 
 class SQLFileParser:
     def __init__(self, sql_path):
@@ -22,6 +22,7 @@ class SQLFileParser:
                     try:
                         i.write(line.strip('\r\n'))
                     except Exception as e:
+                        pdb.set_trace()
                         print(e)
                         print(line)
                         print(idx)
