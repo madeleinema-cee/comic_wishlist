@@ -41,3 +41,4 @@ if __name__ == '__main__':
     parser.add_argument('file_path', type=str)
     args = parser.parse_args()
     s = SQLFileParser(args.file_path)
+    s.main()
